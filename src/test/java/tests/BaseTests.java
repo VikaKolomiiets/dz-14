@@ -5,17 +5,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import pages.BasePage;
 
-public class MainTests {
+public class BaseTests {
     private WebDriver driver;
-    private final String URL = "https://demoqa.com/elements";
+    private BasePage basePage;
 
     @BeforeMethod
     public void setUpTest(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get(URL);
+        driver.get("https://demoqa.com/");
+        basePage = new BasePage(driver);
     }
 
     @AfterTest
