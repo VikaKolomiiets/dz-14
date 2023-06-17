@@ -10,7 +10,7 @@ public class BasePage extends AbstractPage {
     }
 
     public ElementsPage clickElementsForm(){
-        this.getDriver().findElement(elementButton).click();
+        this.findElementVisibleWithFluentWait(elementButton).click();
         return new ElementsPage(this.getDriver());
     }
 
