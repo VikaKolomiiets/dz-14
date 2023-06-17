@@ -15,6 +15,8 @@ public class AbstractPageObject {
     public AbstractPageObject(WebDriver driver) {
         this.driver = driver;
     }
+
+
     public WebElement getWebElement(By by){
         return new WebDriverWait(this.driver, Duration.ofSeconds(25) )
                 .until(ExpectedConditions.visibilityOfElementLocated(by));
