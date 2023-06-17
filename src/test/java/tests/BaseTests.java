@@ -3,15 +3,15 @@ package tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import pages.BasePage;
 
 public class BaseTests {
     private WebDriver driver;
     private BasePage basePage;
 
-    @BeforeMethod
+    @BeforeClass
     public void setUpTest(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -20,7 +20,7 @@ public class BaseTests {
         basePage = new BasePage(driver);
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDownTest(){
         driver.quit();
     }

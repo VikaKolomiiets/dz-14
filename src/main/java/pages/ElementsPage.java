@@ -8,20 +8,27 @@ import java.util.List;
 
 public class ElementsPage extends AbstractPage{
 
-    private final By components = By.xpath("//li[@id='item-3']");
-    private final String NAME_WEB_TABLES ="Web Tables";
+    private By firstGroupComponents = By.xpath("//li[@id='item-3']");
+    private By secondGroupComponents = By.cssSelector("#item-4>.text");
+    //private By buttonsComponent = By.xpath("(//li[@id='item-4']//span[@class= 'text'])[1]");
+    private final String TEXT_WEB_TABLES ="Web Tables";
+    private final String TEXT_BUTTONS ="Buttons";
 
     public ElementsPage(WebDriver driver) {
         super(driver);
     }
 
-    public WebTables clickOnWebTablesButton(){
-        this.getButtonFromButtons(NAME_WEB_TABLES).click();
+    public WebTables clickOnWebTablesComponent(){
+        this.getButtonFromButtons(firstGroupComponents, TEXT_WEB_TABLES).click();
         return new WebTables(this.getDriver());
     }
+    public ButtonsPage clickOnButtonPageComponent(){
+        this.getButtonFromButtons(secondGroupComponents, TEXT_BUTTONS).click();
+        return new ButtonsPage(this.getDriver());
+    }
 
-    private WebElement getButtonFromButtons(String text) {
-        List<WebElement> elements = this.findElementsVisibleWithFluentWait(components);
+    private WebElement getButtonFromButtons(By by, String text) {
+        List<WebElement> elements = this.findElementsVisibleWithFluentWait(by);
         WebElement elementByTest = null;
         for (WebElement element : elements) {
             if (element.getText().equals(text)) {
