@@ -9,7 +9,7 @@ import pages.BasePage;
 
 public class BaseTests {
     private WebDriver driver;
-    private BasePage basePage;
+    protected BasePage basePage;
 
     @BeforeClass
     public void setUpTest(){

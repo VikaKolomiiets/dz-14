@@ -3,12 +3,12 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class WebTables extends AbstractPage {
+public class WebTablesPage extends AbstractPage {
 
     private By addButton =  By.cssSelector("#addNewRecordButton");
     private By titleOfForm = By.cssSelector("#registration-form-modal");
 
-    public WebTables(WebDriver driver) {
+    public WebTablesPage(WebDriver driver) {
         super(driver);
     }
 

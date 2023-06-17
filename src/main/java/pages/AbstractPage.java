@@ -23,21 +23,34 @@ public abstract class AbstractPage {
 
     public WebElement findElementVisibleWithFluentWait(By by){
         FluentWait fluentWait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(6))
+                .withTimeout(Duration.ofSeconds(30))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(Exception.class);
 
-        fluentWait.until(ExpectedConditions.invisibilityOf(this.driver.findElement(by)));
+        fluentWait.until(ExpectedConditions.visibilityOf(this.driver.findElement(by)));
         return this.driver.findElement(by);
     }
 
     public List<WebElement> findElementsVisibleWithFluentWait(By by){
         FluentWait fluentWait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(6))
+                .withTimeout(Duration.ofSeconds(30))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(Exception.class);
 
-        fluentWait.until(ExpectedConditions.invisibilityOf(this.driver.findElement(by)));
-        return this.driver.findElements(by);
+        fluentWait.until(ExpectedConditions.visibilityOf(this.driver.findElement(by)));
+        List<WebElement> elements = this.driver.findElements(by);
+        return elements;
+    }
+
+    public WebElement getElementFromElementsByText(By by, String text) {
+        List<WebElement> elements = this.findElementsVisibleWithFluentWait(by);
+        WebElement elementByTest = null;
+        for (WebElement element : elements) {
+            if (element.getText().equals(text)) {
+                elementByTest = element;
+                break;
+            }
+        }
+        return elementByTest;
     }
  }
