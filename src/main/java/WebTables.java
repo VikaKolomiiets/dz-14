@@ -1,9 +1,8 @@
 import org.openqa.selenium.WebDriver;
 
-public class WebTables {
-    private WebDriver driver;
+public class WebTables extends AbstractPage {
 
     public WebTables(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 }
