@@ -15,7 +15,7 @@ public class BasePage extends AbstractPage {
         super(driver);
     }
 
-    public ElementsPage clickElementPageButton(){
+    public ElementsPage clickElementsPageButton(){
         List<WebElement> elements = this.findElementsVisibleWithFluentWait(buttons2);
         WebElement temp = null;
         for(WebElement element: elements){

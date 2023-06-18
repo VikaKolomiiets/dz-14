@@ -10,7 +10,7 @@ public class ButtonsMessageTest extends BaseTests {
 
     @Test
     public void testClickMeButtonPositive(){
-        ElementsPage elementsPage = basePage.clickElementPageButton();
+        ElementsPage elementsPage = basePage.clickElementsPageButton();
         ButtonsPage buttonsPage = elementsPage.clickOnButtonPageComponent();
 
         String actualText = buttonsPage.getTestAfterClickOnButtonClickMe();

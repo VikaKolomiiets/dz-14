@@ -22,7 +22,6 @@ public class WebTablesPage extends AbstractPage {
         super(driver);
     }
 
-
     public String getTitleNameOfTheRegistrationForm(){
         this.clickOnAddButton();
         WebElement title = this.findElementVisibleWithFluentWait(titleOfForm);
