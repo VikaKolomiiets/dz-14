@@ -8,7 +8,7 @@ public class ButtonsPage extends AbstractPage{
 
     private By buttons = By.xpath("//button[contains(@class, 'primary')]");
     private final String CLICK_ME_BUTTON = "Click Me";
-    private By message = By.cssSelector("#dynamicClickMessage");
+    private By appearedMessage = By.cssSelector("#dynamicClickMessage");
 
     public ButtonsPage(WebDriver driver) {
         super(driver);
@@ -17,7 +17,6 @@ public class ButtonsPage extends AbstractPage{
     public String getTestAfterClickOnButtonClickMe(){
         WebElement button = this.getElementFromElementsByText(buttons, CLICK_ME_BUTTON);
         button.click();
-        return this.findElementVisibleWithFluentWait(message).getText();
+        return this.findElementVisibleWithFluentWait(appearedMessage).getText();
     }
-
 }

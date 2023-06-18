@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ButtonsPage;
 import pages.ElementsPage;
-import tests.BaseTests;
+import tests.base.BaseTests;
 
 public class ButtonsMessageTest extends BaseTests {
 
