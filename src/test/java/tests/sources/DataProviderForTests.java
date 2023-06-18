@@ -8,8 +8,8 @@ public class DataProviderForTests {
     @DataProvider(name ="full-data-registration-form" )
     public static Object[][] setUpAllDataForRegistrationFormPositive(){
         return new Object[][]{
-                {"Agnessa", "Wolf", "agwf@gmail.com", "58", "2682.25", "Medicine"},
-                {"Boris", "Red", "boris@gmail.com", "60", "1798.00", "IT"}};
+                {"Agnesa", "Wolf", "agwf@gmail.com", 58, 5000, "Medicine"},
+                {"Boris", "Red", "boris@gmail.com", 60, 8000, "IT"}};
     }
 
 

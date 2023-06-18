@@ -17,6 +17,9 @@ public class WebTablesPage extends AbstractPage {
     private By departmentBy = By.id("department");
     private By submitButton = By.cssSelector("#submit");
     private By closeButton = By.cssSelector(".close");
+    //private String textAddedIntoCell;
+
+    //private final String XPATH_CELL = String.format("//div[contains(text(), '%s')]", textAddedIntoCell);
 
     public WebTablesPage(WebDriver driver) {
         super(driver);
@@ -28,7 +31,7 @@ public class WebTablesPage extends AbstractPage {
         return title.getText();
     }
 
-    public void setAllDataInRegistrationForm(String firstName, String lastName, String email, Integer age, Double salary, String department ){
+    public void setAllDataInRegistrationForm(String firstName, String lastName, String email, Integer age, Integer salary, String department ){
         this.clickOnAddButton();
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
@@ -38,18 +41,20 @@ public class WebTablesPage extends AbstractPage {
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
     }
-
+    public boolean isAvailableElementWithSuchTextInTable(String text){
+        WebElement cellWithText = this.findElementVisibleWithFluentWait(
+                By.xpath(String.format("//div[contains(text(), '%s')]", text)));
+        return cellWithText != null;
+    }
 
     public void setFirstNameInModalWindow(String firstName){
         WebElement firstNameElement = this.findElementVisibleWithFluentWait(firstNameBy);
         firstNameElement.sendKeys(firstName);
     }
-
     public void setLastNameInModalWindow(String lastName){
         WebElement lastNameElement = this.findElementVisibleWithFluentWait(lastNameBy);
         lastNameElement.sendKeys(lastName);
     }
-
     public void setUserEmailInModalWindow(String email){
         if(!email.contains("@")){
             throw new IllegalArgumentException(String.format("%s is not correct for e-mail, please check for @.", email));
@@ -57,7 +62,6 @@ public class WebTablesPage extends AbstractPage {
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         emailElement.sendKeys(email);
     }
-
     public void setAgeInModalWindow(Integer age){
         if(age < 14){
             throw new IllegalArgumentException(String.format("$d is not acceptable age for employee for this place", age ));
@@ -65,14 +69,13 @@ public class WebTablesPage extends AbstractPage {
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
         ageElement.sendKeys(age.toString());
     }
-    public void setSalaryInModalWindow(Double salary){
-        if(salary < 500.00){
+    public void setSalaryInModalWindow(Integer salary){
+        if(salary < 100){
             throw new IllegalArgumentException(String.format("$d should be more than 500.00 or more", salary ));
         }
         WebElement salaryElement = this.findElementVisibleWithFluentWait(salaryBy);
         salaryElement.sendKeys(salary.toString());
     }
-
     public void setDepartmentInModalWindow(String department){
         if(department == null || department.isEmpty()){
             throw new NullPointerException("Please, fill in the Department");
