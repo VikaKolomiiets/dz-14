@@ -4,6 +4,9 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class WebTablesPage extends AbstractPage {
 
@@ -41,10 +44,18 @@ public class WebTablesPage extends AbstractPage {
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
     }
+
     public boolean isAvailableElementWithSuchTextInTable(String text){
-        WebElement cellWithText = this.findElementVisibleWithFluentWait(
-                By.xpath(String.format("//div[contains(text(), '%s')]", text)));
-        return cellWithText != null;
+        String byPath = String.format("//div[contains(text(), '%s')]", text);
+        WebElement cellWithText = this.findElementVisibleWithFluentWait(By.xpath(byPath));
+        if(cellWithText != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public List<String> getAllInputCellTexts(){
+        Select tableElement = new Select();
     }
 
     public void setFirstNameInModalWindow(String firstName){
@@ -91,10 +102,10 @@ public class WebTablesPage extends AbstractPage {
         this.findElementVisibleWithFluentWait(addButton).click();
     }
     public void clickOnSubmitButton(){
-        this.findElementVisibleWithFluentWait(submitButton);
+        this.findElementVisibleWithFluentWait(submitButton).click();
     }
     public void clickOnCloseButton(){
-        this.findElementVisibleWithFluentWait(closeButton);
+        this.findElementVisibleWithFluentWait(closeButton).click();
     }
 
 }

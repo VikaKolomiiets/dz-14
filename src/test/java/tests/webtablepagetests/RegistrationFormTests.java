@@ -1,5 +1,6 @@
 package tests.webtablepagetests;
 
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.ElementsPage;
@@ -9,7 +10,7 @@ import tests.sources.DataProviderForTests;
 
 public class RegistrationFormTests extends BaseTests {
 
-
+    @Description("Positive test")
     @Test
     public void testRegistrationFormAppeared() {
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
@@ -19,22 +20,26 @@ public class RegistrationFormTests extends BaseTests {
         Assert.assertEquals(actualTitleName, expectedTitleName, "Switched page is not opened with Title name");
     }
 
+    @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "full-data-registration-form")
     public void testFillInRegistrationFormPositive(
             String firstName, String lastName, String email, Integer age, Integer salary, String department) {
 
+        boolean isClientDataAddedInTable = false;
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         webTablesPage.setAllDataInRegistrationForm(firstName, lastName, email, age, salary, department);
 
-        boolean isAvailible = webTablesPage.isAvailableElementWithSuchTextInTable(firstName);
+        boolean isFirstName = webTablesPage.isAvailableElementWithSuchTextInTable(firstName);
+        boolean isLastName = webTablesPage.isAvailableElementWithSuchTextInTable(lastName);
+        boolean isEmailName = webTablesPage.isAvailableElementWithSuchTextInTable(email);
+        boolean isAgeName = webTablesPage.isAvailableElementWithSuchTextInTable(age.toString());
+        boolean isSalaryName = webTablesPage.isAvailableElementWithSuchTextInTable(salary.toString());
+        boolean isDepartmentInTable = webTablesPage.isAvailableElementWithSuchTextInTable(department);
 
-        Assert.assertTrue(webTablesPage.isAvailableElementWithSuchTextInTable(firstName), "FirstName is not found in table.");
-        Assert.assertTrue(webTablesPage.isAvailableElementWithSuchTextInTable(lastName), "FirstName is not found in table.");
-        Assert.assertTrue(webTablesPage.isAvailableElementWithSuchTextInTable(email), "E-mail is not found in table.");
-        Assert.assertTrue(webTablesPage.isAvailableElementWithSuchTextInTable(age.toString()), "Age is not found in table.");
-        Assert.assertTrue(webTablesPage.isAvailableElementWithSuchTextInTable(salary.toString()), "Salary is not found.");
-        Assert.assertTrue(webTablesPage.isAvailableElementWithSuchTextInTable(department), "Department is not found.");
-
+        if (isFirstName && isLastName && isEmailName && isAgeName && isSalaryName && isDepartmentInTable) {
+            isClientDataAddedInTable = true;
+        }
+        Assert.assertTrue(isClientDataAddedInTable, "All Client Data is not found in table.");
     }
 }
