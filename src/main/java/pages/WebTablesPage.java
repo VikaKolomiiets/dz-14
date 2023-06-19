@@ -1,12 +1,11 @@
 package pages;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WebTablesPage extends AbstractPage {
 
@@ -20,9 +19,9 @@ public class WebTablesPage extends AbstractPage {
     private By departmentBy = By.id("department");
     private By submitButton = By.cssSelector("#submit");
     private By closeButton = By.cssSelector(".close");
-    //private String textAddedIntoCell;
+    private By tableCells = By.cssSelector(".rt-td");
+    private final String EMPTY_CELL_TEXT = "&nbsp;";
 
-    //private final String XPATH_CELL = String.format("//div[contains(text(), '%s')]", textAddedIntoCell);
 
     public WebTablesPage(WebDriver driver) {
         super(driver);
@@ -34,7 +33,7 @@ public class WebTablesPage extends AbstractPage {
         return title.getText();
     }
 
-    public void setAllDataInRegistrationForm(String firstName, String lastName, String email, Integer age, Integer salary, String department ){
+    public void setAllDataInRegistrationFormWithComfirmation(String firstName, String lastName, String email, Integer age, Integer salary, String department ){
         this.clickOnAddButton();
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
@@ -54,8 +53,15 @@ public class WebTablesPage extends AbstractPage {
             return false;
         }
     }
-    public List<String> getAllInputCellTexts(){
-        Select tableElement = new Select();
+    public List<String> getAllFillInCellTexts(){
+
+        List<WebElement> allTableCells = findElementsVisibleWithFluentWait(tableCells);
+        List<String> allExistedTexts = allTableCells
+                .stream()
+                .map(e -> e.getText())
+                .filter(t -> !t.isEmpty() && !t.equals(" "))
+                .collect(Collectors.toList());
+        return allExistedTexts;
     }
 
     public void setFirstNameInModalWindow(String firstName){

@@ -9,12 +9,19 @@ import tests.base.BaseTests;
 import tests.sources.DataProviderForTests;
 
 public class RegistrationFormTests extends BaseTests {
+    private WebTablesPage webTablesPage;
+
+    @BeforeMethod
+    public void setUpMethod(){
+        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
+        webTablesPage = elementsPage.clickOnWebTablesComponent();
+    }
+
+
 
     @Description("Positive test")
     @Test
     public void testRegistrationFormAppeared() {
-        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
-        WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         String actualTitleName = webTablesPage.getTitleNameOfTheRegistrationForm();
         String expectedTitleName = "Registration Form";
         Assert.assertEquals(actualTitleName, expectedTitleName, "Switched page is not opened with Title name");
@@ -22,24 +29,36 @@ public class RegistrationFormTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "full-data-registration-form")
-    public void testFillInRegistrationFormPositive(
+    public void testCheckAddedDateViaRegistrationFormPositive(
             String firstName, String lastName, String email, Integer age, Integer salary, String department) {
 
         boolean isClientDataAddedInTable = false;
-        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
-        WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
-        webTablesPage.setAllDataInRegistrationForm(firstName, lastName, email, age, salary, department);
 
-        boolean isFirstName = webTablesPage.isAvailableElementWithSuchTextInTable(firstName);
-        boolean isLastName = webTablesPage.isAvailableElementWithSuchTextInTable(lastName);
-        boolean isEmailName = webTablesPage.isAvailableElementWithSuchTextInTable(email);
-        boolean isAgeName = webTablesPage.isAvailableElementWithSuchTextInTable(age.toString());
-        boolean isSalaryName = webTablesPage.isAvailableElementWithSuchTextInTable(salary.toString());
-        boolean isDepartmentInTable = webTablesPage.isAvailableElementWithSuchTextInTable(department);
+        webTablesPage.setAllDataInRegistrationFormWithComfirmation(firstName, lastName, email, age, salary, department);
 
-        if (isFirstName && isLastName && isEmailName && isAgeName && isSalaryName && isDepartmentInTable) {
+        if (webTablesPage.isAvailableElementWithSuchTextInTable(firstName)
+                && webTablesPage.isAvailableElementWithSuchTextInTable(lastName)
+                && webTablesPage.isAvailableElementWithSuchTextInTable(email)
+                && webTablesPage.isAvailableElementWithSuchTextInTable(age.toString())
+                && webTablesPage.isAvailableElementWithSuchTextInTable(salary.toString())
+                && webTablesPage.isAvailableElementWithSuchTextInTable(department)) {
             isClientDataAddedInTable = true;
         }
         Assert.assertTrue(isClientDataAddedInTable, "All Client Data is not found in table.");
     }
+
+    @Description("Positive test")
+    @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "full-data-registration-form")
+    public void testCheckNumberAddedNewDateViaRegistrationFormPositive(
+            String firstName, String lastName, String email, Integer age, Integer salary, String department){
+
+        int numberFillInCellsInTableBefore = webTablesPage.getAllFillInCellTexts().size();
+        webTablesPage.setAllDataInRegistrationFormWithComfirmation(firstName, lastName, email, age, salary, department);
+        int numberFillInCellsInTableAfter = webTablesPage.getAllFillInCellTexts().size();
+        Assert.assertEquals(numberFillInCellsInTableAfter,
+                numberFillInCellsInTableBefore + 6,
+                "There was not filled in 6 cells in table");
+
+    }
+
 }
