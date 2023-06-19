@@ -10,7 +10,6 @@ import tests.sources.DataProviderForTests;
 
 public class RegistrationFormTests extends BaseTests {
 
-
     @Description("Positive test")
     @Test
     public void testRegistrationFormAppeared() {
@@ -30,7 +29,7 @@ public class RegistrationFormTests extends BaseTests {
 
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
-        webTablesPage.setAllDataInRegistrationFormWithComfirmation(firstName, lastName, email, age, salary, department);
+        webTablesPage.setAllDataInRegistrationFormWithConfirmation(firstName, lastName, email, age, salary, department);
 
         if (webTablesPage.isAvailableElementWithSuchTextInTable(firstName)
                 && webTablesPage.isAvailableElementWithSuchTextInTable(lastName)
@@ -51,7 +50,7 @@ public class RegistrationFormTests extends BaseTests {
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         int numberFillInCellsInTableBefore = webTablesPage.getAllFillInCellTexts().size();
-        webTablesPage.setAllDataInRegistrationFormWithComfirmation(firstName, lastName, email, age, salary, department);
+        webTablesPage.setAllDataInRegistrationFormWithConfirmation(firstName, lastName, email, age, salary, department);
         int numberFillInCellsInTableAfter = webTablesPage.getAllFillInCellTexts().size();
         Assert.assertEquals(numberFillInCellsInTableAfter,
                 numberFillInCellsInTableBefore + 6,

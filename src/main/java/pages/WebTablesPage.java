@@ -20,8 +20,9 @@ public class WebTablesPage extends AbstractPage {
     private By submitButton = By.cssSelector("#submit");
     private By closeButton = By.cssSelector(".close");
     private By tableCells = By.cssSelector(".rt-td");
+    private By editButtonFirstLine = By.id("edit-record-1");
+    private By editButtonThirdLine = By.id("edit-record-3");
     private final String EMPTY_CELL_TEXT = "&nbsp;";
-
 
     public WebTablesPage(WebDriver driver) {
         super(driver);
@@ -33,7 +34,7 @@ public class WebTablesPage extends AbstractPage {
         return title.getText();
     }
 
-    public void setAllDataInRegistrationFormWithComfirmation(String firstName, String lastName, String email, Integer age, Integer salary, String department ){
+    public void setAllDataInRegistrationFormWithConfirmation(String firstName, String lastName, String email, Integer age, Integer salary, String department ){
         this.clickOnAddButton();
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
@@ -42,6 +43,22 @@ public class WebTablesPage extends AbstractPage {
         this.setSalaryInModalWindow(salary);
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
+    }
+
+    public void editSalaryInFirstLine(Integer salary){
+        this.findElementVisibleWithFluentWait(editButtonFirstLine).click();
+        this.setSalaryInModalWindow(salary);
+        this.clickOnSubmitButton();
+    }
+
+    public Integer editAgePlusOneInAnyChosenFilledLine(Integer line){
+        String chosenLine = String.format("edit-record-%d", line);
+        this.findElementVisibleWithFluentWait(By.id(chosenLine)).click();
+
+        Integer age = Integer.valueOf(this.findElementVisibleWithFluentWait(ageBy).getText()) + 1;
+        this.setSalaryInModalWindow(age);
+        this.clickOnSubmitButton();
+        return age;
     }
 
     public boolean isAvailableElementWithSuchTextInTable(String text){
@@ -64,22 +81,41 @@ public class WebTablesPage extends AbstractPage {
         return allExistedTexts;
     }
 
+    public Integer getNumbersOfGivenTextInList(String text){
+        List<String> givenTexts = getAllFillInCellTexts()
+                .stream()
+                .filter(t -> t.equals(text)).collect(Collectors.toList());
+        return givenTexts.size();
+    }
+
     public void setFirstNameInModalWindow(String firstName){
+        if(firstName == null || firstName.isEmpty()){
+            throw new NullPointerException("Please, fill the first name in");
+        }
         WebElement firstNameElement = this.findElementVisibleWithFluentWait(firstNameBy);
         firstNameElement.sendKeys(firstName);
     }
     public void setLastNameInModalWindow(String lastName){
+        if(lastName == null || lastName.isEmpty()){
+            throw new NullPointerException("Please, fill the last name in");
+        }
         WebElement lastNameElement = this.findElementVisibleWithFluentWait(lastNameBy);
         lastNameElement.sendKeys(lastName);
     }
     public void setUserEmailInModalWindow(String email){
+        if(email == null || email.isEmpty()){
+            throw new NullPointerException("Please, fill the e-mail in");
+        }
         if(!email.contains("@")){
-            throw new IllegalArgumentException(String.format("%s is not correct for e-mail, please check for @.", email));
+            throw new IllegalArgumentException(String.format("%s is not correct name for e-mail, please check for @.", email));
         }
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         emailElement.sendKeys(email);
     }
     public void setAgeInModalWindow(Integer age){
+        if(age == null){
+            throw new NullPointerException("Please, fill the age in");
+        }
         if(age < 14){
             throw new IllegalArgumentException(String.format("$d is not acceptable age for employee for this place", age ));
         }
@@ -87,7 +123,10 @@ public class WebTablesPage extends AbstractPage {
         ageElement.sendKeys(age.toString());
     }
     public void setSalaryInModalWindow(Integer salary){
-        if(salary < 100){
+        if(salary == null){
+            throw new NullPointerException("Please, fill the salary in");
+        }
+        if(salary < 500){
             throw new IllegalArgumentException(String.format("$d should be more than 500.00 or more", salary ));
         }
         WebElement salaryElement = this.findElementVisibleWithFluentWait(salaryBy);
