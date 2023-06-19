@@ -10,11 +10,12 @@ public class DataProviderForTests {
                 {"Agnesa", "Wolf", "agwf@gmail.com", 58, 5000, "Medicine"},
                 {"Boris", "Red", "boris@gmail.com", 60, 8000, "IT"}};
     }
+
     @DataProvider(name ="edit-salary-form" )
     public static Object[][] setUpSalaryForEditRecordsPositive(){
         return new Object[][]{
-                {"15787"},
-                {"1111"}};
+                {1580},
+                {1110}};
     }
 
 

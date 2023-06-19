@@ -46,7 +46,8 @@ public class WebTablesPage extends AbstractPage {
     }
 
     public void editSalaryInFirstLine(Integer salary){
-        this.findElementVisibleWithFluentWait(editButtonFirstLine).click();
+        WebElement editButton = this.findElementVisibleWithFluentWait(editButtonFirstLine);
+        editButton.click();
         this.setSalaryInModalWindow(salary);
         this.clickOnSubmitButton();
     }
@@ -84,7 +85,8 @@ public class WebTablesPage extends AbstractPage {
     public Integer getNumbersOfGivenTextInList(String text){
         List<String> givenTexts = getAllFillInCellTexts()
                 .stream()
-                .filter(t -> t.equals(text)).collect(Collectors.toList());
+                .filter(t -> t.equals(text))
+                .collect(Collectors.toList());
         return givenTexts.size();
     }
 
@@ -93,6 +95,7 @@ public class WebTablesPage extends AbstractPage {
             throw new NullPointerException("Please, fill the first name in");
         }
         WebElement firstNameElement = this.findElementVisibleWithFluentWait(firstNameBy);
+        firstNameElement.clear();
         firstNameElement.sendKeys(firstName);
     }
     public void setLastNameInModalWindow(String lastName){
@@ -100,6 +103,7 @@ public class WebTablesPage extends AbstractPage {
             throw new NullPointerException("Please, fill the last name in");
         }
         WebElement lastNameElement = this.findElementVisibleWithFluentWait(lastNameBy);
+        lastNameElement.clear();
         lastNameElement.sendKeys(lastName);
     }
     public void setUserEmailInModalWindow(String email){
@@ -110,6 +114,7 @@ public class WebTablesPage extends AbstractPage {
             throw new IllegalArgumentException(String.format("%s is not correct name for e-mail, please check for @.", email));
         }
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
+        emailElement.clear();
         emailElement.sendKeys(email);
     }
     public void setAgeInModalWindow(Integer age){
@@ -120,16 +125,18 @@ public class WebTablesPage extends AbstractPage {
             throw new IllegalArgumentException(String.format("$d is not acceptable age for employee for this place", age ));
         }
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
+        ageElement.clear();
         ageElement.sendKeys(age.toString());
     }
-    public void setSalaryInModalWindow(Integer salary){
+    private void setSalaryInModalWindow(Integer salary){
         if(salary == null){
             throw new NullPointerException("Please, fill the salary in");
         }
-        if(salary < 500){
-            throw new IllegalArgumentException(String.format("$d should be more than 500.00 or more", salary ));
+        if(salary < 100){
+            throw new IllegalArgumentException(String.format("$d should be more than 100.00 or more", salary ));
         }
         WebElement salaryElement = this.findElementVisibleWithFluentWait(salaryBy);
+        salaryElement.clear();
         salaryElement.sendKeys(salary.toString());
     }
     public void setDepartmentInModalWindow(String department){
@@ -140,6 +147,7 @@ public class WebTablesPage extends AbstractPage {
             throw new IllegalArgumentException("Please, check Department name: it should contain more than 1 letter");
         }
         WebElement departmentElement = this.findElementVisibleWithFluentWait(departmentBy);
+        departmentElement.clear();
         departmentElement.sendKeys(department);
     }
 
