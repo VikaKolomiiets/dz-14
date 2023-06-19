@@ -1,4 +1,4 @@
-package tests.webtablepagetests;
+package tests.webtable;
 
 import io.qameta.allure.Description;
 import org.testng.Assert;
@@ -9,19 +9,13 @@ import tests.base.BaseTests;
 import tests.sources.DataProviderForTests;
 
 public class RegistrationFormTests extends BaseTests {
-    private WebTablesPage webTablesPage;
-
-    @BeforeMethod
-    public void setUpMethod(){
-        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
-        webTablesPage = elementsPage.clickOnWebTablesComponent();
-    }
-
 
 
     @Description("Positive test")
     @Test
     public void testRegistrationFormAppeared() {
+        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
+        WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         String actualTitleName = webTablesPage.getTitleNameOfTheRegistrationForm();
         String expectedTitleName = "Registration Form";
         Assert.assertEquals(actualTitleName, expectedTitleName, "Switched page is not opened with Title name");
@@ -34,6 +28,8 @@ public class RegistrationFormTests extends BaseTests {
 
         boolean isClientDataAddedInTable = false;
 
+        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
+        WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         webTablesPage.setAllDataInRegistrationFormWithComfirmation(firstName, lastName, email, age, salary, department);
 
         if (webTablesPage.isAvailableElementWithSuchTextInTable(firstName)
@@ -44,7 +40,7 @@ public class RegistrationFormTests extends BaseTests {
                 && webTablesPage.isAvailableElementWithSuchTextInTable(department)) {
             isClientDataAddedInTable = true;
         }
-        Assert.assertTrue(isClientDataAddedInTable, "All Client Data is not found in table.");
+        Assert.assertTrue(isClientDataAddedInTable, "Client Data is not found in table.");
     }
 
     @Description("Positive test")
@@ -52,13 +48,14 @@ public class RegistrationFormTests extends BaseTests {
     public void testCheckNumberAddedNewDateViaRegistrationFormPositive(
             String firstName, String lastName, String email, Integer age, Integer salary, String department){
 
+        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
+        WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         int numberFillInCellsInTableBefore = webTablesPage.getAllFillInCellTexts().size();
         webTablesPage.setAllDataInRegistrationFormWithComfirmation(firstName, lastName, email, age, salary, department);
         int numberFillInCellsInTableAfter = webTablesPage.getAllFillInCellTexts().size();
         Assert.assertEquals(numberFillInCellsInTableAfter,
                 numberFillInCellsInTableBefore + 6,
-                "There was not filled in 6 cells in table");
-
+                "Incorrect number of filled cells");
     }
 
 }

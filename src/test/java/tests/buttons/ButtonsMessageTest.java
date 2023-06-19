@@ -1,4 +1,4 @@
-package tests.buttonspagetests;
+package tests.buttons;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

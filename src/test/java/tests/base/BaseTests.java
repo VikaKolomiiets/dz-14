@@ -18,18 +18,14 @@ public class BaseTests {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        setUpMethod();
+    }
+    @BeforeMethod
+    public void setUpMethod(){
         driver.get("https://demoqa.com/");
         basePage = new BasePage(driver);
     }
 
-
-
-
-
-    @AfterMethod
-    public void tearDownMethod(){
-        driver.close();
-    }
 
     @AfterClass
     public void tearDownClass(){
