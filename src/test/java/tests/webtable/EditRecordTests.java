@@ -6,12 +6,14 @@ import org.testng.annotations.Test;
 import tests.base.BaseTests;
 import tests.sources.DataProviderForTests;
 
+import java.util.Map;
+
 
 public class EditRecordTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-salary-form")
-    public void testEditSalaryInTable(Integer salary) {
+    public void testEditSalaryInTablePositive(Integer salary) {
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
         Integer numbersGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(salary.toString());
@@ -24,5 +26,18 @@ public class EditRecordTests extends BaseTests {
                 "Numbers of text Salary are not increased.");
         Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(salary.toString()),
                 "The text of given salary is not found in the table.");
+    }
+
+    @Test
+    public void testEditAgePlusYearInTablePositive(){
+        var elementsPage = basePage.clickElementsPageButton();
+        var webTables = elementsPage.clickOnWebTablesComponent();
+        Integer actualAgeFirstLine = webTables.editAgePlusOneInAnyChosenFilledLine(1);
+        Integer actualAgeSecondLine = webTables.editAgePlusOneInAnyChosenFilledLine(2);
+        Integer actualAgeThirdLine = webTables.editAgePlusOneInAnyChosenFilledLine(3);
+
+
+
+
     }
 }
