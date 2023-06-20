@@ -27,14 +27,16 @@ public class EditRecordTests extends BaseTests {
         Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(salary.toString()),
                 "The text of given salary is not found in the table.");
     }
-
-    @Test
-    public void testEditAgePlusYearInTablePositive(){
+    @Description("Positive test")
+    @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-age-form")
+    public void testEditAgePlusYearInTablePositive(Integer line){
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
+        //= webTables.getAgeFromModalWindow(Integer line);
         Integer actualAgeFirstLine = webTables.editAgePlusOneInAnyChosenFilledLine(1);
         Integer actualAgeSecondLine = webTables.editAgePlusOneInAnyChosenFilledLine(2);
         Integer actualAgeThirdLine = webTables.editAgePlusOneInAnyChosenFilledLine(3);
+
 
 
 

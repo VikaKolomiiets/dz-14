@@ -18,6 +18,14 @@ public class DataProviderForTests {
                 {1110}};
     }
 
+    @DataProvider(name = "edit-age-form")
+    public  static Object[][] setUpLineForEditAgeRecordsPositive(){
+        return new Object[][]{
+                {1},
+                {2},
+                {3}};
+    }
+
 
 
 

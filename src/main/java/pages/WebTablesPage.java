@@ -108,7 +108,7 @@ public class WebTablesPage extends AbstractPage {
         return departmentName;
     }
 
-    public Map<String, String> getAllEmployeeDataInLineViaEditorModal(Integer line) {
+    public Map<String, String> getAllEmployeeDataInLineViaEditModalWindow(Integer line) {
         String chosenLine = String.format("edit-record-%d", line);
         findElementVisibleWithFluentWait(By.id(chosenLine)).click();
 
@@ -134,6 +134,13 @@ public class WebTablesPage extends AbstractPage {
     }
 
     public Integer getAgeFromModalWindow() {
+        WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
+        return Integer.valueOf(ageElement.getAttribute("value"));
+    }
+
+    public Integer getAgeFromModalWindow(Integer line) {
+        String chosenLine = String.format("edit-record-%d", line);
+        findElementVisibleWithFluentWait(By.id(chosenLine)).click();
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }

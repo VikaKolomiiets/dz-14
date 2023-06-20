@@ -76,7 +76,7 @@ public class RegistrationFormTests extends BaseTests {
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
 
         webTablesPage.setAllDataInRegistrationFormWithConfirmation(firstName, lastName, email, age, salary, department);
-        Map<String, String> employeeDataFirstLine = webTablesPage.getAllEmployeeDataInLineViaEditorModal(NEW_LINE_NUMBER);
+        Map<String, String> employeeDataFirstLine = webTablesPage.getAllEmployeeDataInLineViaEditModalWindow(NEW_LINE_NUMBER);
 
         Assert.assertEquals(
                 employeeDataFirstLine.get("firstName"), firstName, "First name is not equal.");
