@@ -26,7 +26,7 @@ public class RegistrationFormTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "full-data-registration-form")
-    public void testCheckAddedDateInTableAvailabilityPositive(
+    public void testCheckAddedDateAvailableInTable(
             String firstName, String lastName, String email, Integer age, Integer salary, String department) {
 
         boolean isClientDataAddedInTable = false;
@@ -48,7 +48,7 @@ public class RegistrationFormTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "full-data-registration-form")
-    public void testCheckNumberAddedNewDateViaRegistrationFormPositive(
+    public void testCheckAddedNumbersOfDataPositive(
             String firstName, String lastName, String email, Integer age, Integer salary, String department) {
 
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
@@ -69,7 +69,7 @@ public class RegistrationFormTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "full-data-registration-form")
-    public void testAllAddedDataPositive(
+    public void testEveryAddedDataAvailible(
             String firstName, String lastName, String email, Integer age, Integer salary, String department) {
 
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
