@@ -11,18 +11,18 @@ public class EditRecordTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-salary-form")
-    public void testEditAgeInTable(Integer salary) {
+    public void testEditSalaryInTable(Integer salary) {
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
-        Integer numbersBeforeEdit = webTables.getNumbersOfGivenTextInList(salary.toString());
+        Integer numbersGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(salary.toString());
 
         webTables.editSalaryInFirstLine(salary);
-        Integer numbersAfterEdit = webTables.getNumbersOfGivenTextInList(salary.toString());
+        Integer numbersGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(salary.toString());
 
-        Assert.assertEquals(numbersAfterEdit,
-                numbersBeforeEdit + 1,
-                "Salary is not changed for given one.");
+        Assert.assertEquals(numbersGivenTextAfterEdit,
+                numbersGivenTextBeforeEdit + 1,
+                "Numbers of text Salary are not increased.");
         Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(salary.toString()),
-                "New salary is not found in table data");
+                "The text of given salary is not found in the table.");
     }
 }
