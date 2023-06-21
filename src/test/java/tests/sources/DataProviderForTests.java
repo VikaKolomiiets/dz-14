@@ -14,16 +14,17 @@ public class DataProviderForTests {
     @DataProvider(name ="edit-salary-form" )
     public static Object[][] setUpSalaryForEditRecordsPositive(){
         return new Object[][]{
-                {1580},
-                {1110}};
+                {1, 1580},
+                {2, 1110},
+                {3, 2415}};
     }
 
     @DataProvider(name = "edit-age-form")
     public  static Object[][] setUpLineForEditAgeRecordsPositive(){
         return new Object[][]{
-                {1},
-                {2},
-                {3}};
+                {1, 15},
+                {2, 29},
+                {3, 90}};
     }
 
 

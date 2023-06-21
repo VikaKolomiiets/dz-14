@@ -26,6 +26,7 @@ public class WebTablesPage extends AbstractPage {
     private By editButtonFirstLine = By.id("edit-record-1");
     private By editButtonSecondLine = By.id("edit-record-1");
     private By editButtonThirdLine = By.id("edit-record-3");
+
     private final String EMPTY_CELL_TEXT = "&nbsp;";
 
     public WebTablesPage(WebDriver driver) {
@@ -49,22 +50,20 @@ public class WebTablesPage extends AbstractPage {
         this.clickOnSubmitButton();
     }
 
-    public void editSalaryInFirstLine(Integer salary) {
-        WebElement editButton = this.findElementVisibleWithFluentWait(editButtonFirstLine);
-        editButton.click();
+    public void editSalaryInAnyChosenLine(int line, Integer salary) {
+        this.clickOnEditorInLine(line);
         this.setSalaryInModalWindow(salary);
         this.clickOnSubmitButton();
     }
+    public void editAgeInAnyChosenLine(int line, Integer age) {
+        this.clickOnEditorInLine(line);
 
-    public Integer editAgePlusOneInAnyChosenFilledLine(Integer line) {
-        String chosenLine = String.format("edit-record-%d", line);
-        this.findElementVisibleWithFluentWait(By.id(chosenLine)).click();
-
-        Integer age = getAgeFromModalWindow();
-        this.setAgeInModalWindow(age + 1);
+        this.setAgeInModalWindow(age);
         this.clickOnSubmitButton();
-        return age + 1;
     }
+
+
+
 
     public boolean isAvailableElementWithSuchTextInTable(String text) {
         String byPath = String.format("//div[contains(text(), '%s')]", text);
@@ -134,6 +133,11 @@ public class WebTablesPage extends AbstractPage {
     }
 
     public Integer getAgeFromModalWindow() {
+        WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
+        return Integer.valueOf(ageElement.getAttribute("value"));
+    }
+
+    public Integer getAgeInAnyChosenLineFromModalWindow(int line) {
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }
@@ -226,16 +230,20 @@ public class WebTablesPage extends AbstractPage {
         departmentElement.sendKeys(department);
     }
 
-    public void clickOnAddButton() {
+    private void clickOnAddButton() {
         this.findElementVisibleWithFluentWait(addButton).click();
     }
 
-    public void clickOnSubmitButton() {
+    private void clickOnSubmitButton() {
         this.findElementVisibleWithFluentWait(submitButton).click();
     }
 
-    public void clickOnCloseButton() {
+    private void clickOnCloseButton() {
         this.findElementVisibleWithFluentWait(closeButton).click();
+    }
+    private void clickOnEditorInLine(int line) {
+        String chosenLine = String.format("edit-record-%d", line);
+        this.findElementVisibleWithFluentWait(By.id(chosenLine)).click();
     }
 
 }
