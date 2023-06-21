@@ -28,6 +28,7 @@ public class WebTablesPage extends AbstractPage {
     private By editButtonThirdLine = By.id("edit-record-3");
 
     private final String EMPTY_CELL_TEXT = "&nbsp;";
+    private final String BORDER_COLOR_RED = "rgb(220, 53, 69)";
 
     public WebTablesPage(WebDriver driver) {
         super(driver);
@@ -61,7 +62,7 @@ public class WebTablesPage extends AbstractPage {
                                            String email,
                                            Integer age,
                                            Integer salary,
-                                           String department ){
+                                           String department) {
         this.clickOnEditorInLine(line);
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
@@ -71,7 +72,6 @@ public class WebTablesPage extends AbstractPage {
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
     }
-
     public void editSalaryInAnyChosenLine(int line, Integer salary) {
         this.clickOnEditorInLine(line);
         this.setSalaryInModalWindow(salary);
@@ -82,7 +82,6 @@ public class WebTablesPage extends AbstractPage {
         this.setAgeInModalWindow(age);
         this.clickOnSubmitButton();
     }
-
     public void editFirstNameInAnyChosenLine(int line, String firstName) {
         this.clickOnEditorInLine(line);
         this.setFirstNameInModalWindow(firstName);
@@ -98,15 +97,13 @@ public class WebTablesPage extends AbstractPage {
         this.setEmailInModalWindow(email);
         this.clickOnSubmitButton();
     }
-
     public void editDepartmentInAnyChosenLine(int line, String department) {
         this.clickOnEditorInLine(line);
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
     }
 
-
-    public boolean isAvailableElementWithSuchTextInTable(String text) {
+    public boolean isAvailableElementWithGivenTextInTable(String text) {
         String byPath = String.format("//div[contains(text(), '%s')]", text);
         WebElement cellWithText = this.findElementVisibleWithFluentWait(By.xpath(byPath));
         if (cellWithText != null) {
@@ -115,7 +112,6 @@ public class WebTablesPage extends AbstractPage {
             return false;
         }
     }
-
     public List<String> getAllFillInCellTexts() {
 
         List<WebElement> allTableCells = findElementsVisibleWithFluentWait(tableCells);
@@ -126,7 +122,6 @@ public class WebTablesPage extends AbstractPage {
                 .collect(Collectors.toList());
         return allExistedTexts;
     }
-
     public Integer getNumbersOfGivenTextInList(String text) {
         List<String> givenTexts = getAllFillInCellTexts()
                 .stream()
@@ -134,7 +129,6 @@ public class WebTablesPage extends AbstractPage {
                 .collect(Collectors.toList());
         return givenTexts.size();
     }
-
     public String getDepartmentInTableInGivenLine(int line) {
         String chosenLine = String.format("edit-record-%d", line);
         WebElement editButton = findElementVisibleWithFluentWait(By.id(chosenLine));
@@ -143,11 +137,8 @@ public class WebTablesPage extends AbstractPage {
                 .findElement(RelativeLocator
                         .with(By.className("rt-td"))
                         .toLeftOf(editButton));
-        String departmentName = departmentElement.getText();
-
-        return departmentName;
+        return departmentElement.getText();
     }
-
     public Map<String, String> getAllEmployeeDataInLineViaEditModalWindow(int line) {
         String chosenLine = String.format("edit-record-%d", line);
         findElementVisibleWithFluentWait(By.id(chosenLine)).click();
@@ -161,6 +152,22 @@ public class WebTablesPage extends AbstractPage {
         employeeDataMap.put("department", getDepartmentFromModalWindow());
 
         return employeeDataMap;
+    }
+    public boolean isRedBorderColorAllElementsWithEmptySubmit() {
+        this.clickOnAddButton();
+        this.clickOnSubmitButton();
+
+        if (this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
+                && this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
+                && this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
+                && this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
+                && this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
+                && this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color").equals(BORDER_COLOR_RED)) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 
@@ -289,16 +296,58 @@ public class WebTablesPage extends AbstractPage {
     private void clickOnAddButton() {
         this.findElementVisibleWithFluentWait(addButton).click();
     }
+
     private void clickOnSubmitButton() {
         this.findElementVisibleWithFluentWait(submitButton).click();
     }
+
     private void clickOnCloseButtonModalWindow() {
         this.findElementVisibleWithFluentWait(closeButton).click();
     }
+
     private void clickOnEditorInLine(int line) {
         String chosenLine = String.format("edit-record-%d", line);
         this.findElementVisibleWithFluentWait(By.id(chosenLine)).click();
     }
     //endregion
+
+//
+//    public String getFirstNameBorderColorWithEmptySubmit() {
+//        this.clickOnAddButton();
+//        this.clickOnSubmitButton();
+//        return this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color");
+//    }
+//
+//    public String getLastNameBorderColorWithEmptySubmit() {
+//        this.clickOnAddButton();
+//        this.clickOnSubmitButton();
+//        return this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color");
+//    }
+//
+//    public String getAgeNameBorderColorWithEmptySubmit() {
+//        this.clickOnAddButton();
+//        this.clickOnSubmitButton();
+//        return this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color");
+//    }
+//
+//    public String getEmailBorderColorWithEmptySubmit() {
+//        this.clickOnAddButton();
+//        this.clickOnSubmitButton();
+//        return this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color");
+//    }
+//
+//    public String getSalaryBorderColorWithEmptySubmit() {
+//        this.clickOnAddButton();
+//        this.clickOnSubmitButton();
+//        return this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color");
+//    }
+//
+//    public String getDepartmentBorderColorWithEmptySubmit() {
+//        this.clickOnAddButton();
+//        this.clickOnSubmitButton();
+//        return this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color");
+//    }
+
+
 
 }

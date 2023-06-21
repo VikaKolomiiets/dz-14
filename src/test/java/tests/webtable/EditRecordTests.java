@@ -22,7 +22,7 @@ public class EditRecordTests extends BaseTests {
         Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(salary.toString());
         Integer editedSalary = webTables.getSalaryFromModalWindow(line);
 
-        Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(salary.toString()),
+        Assert.assertTrue(webTables.isAvailableElementWithGivenTextInTable(salary.toString()),
                 "The given text of salary is not found in the table.");
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
@@ -42,7 +42,7 @@ public class EditRecordTests extends BaseTests {
         Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(age.toString());
         Integer editedAge = webTables.getAgeFromModalWindow(line);
 
-        Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(age.toString()),
+        Assert.assertTrue(webTables.isAvailableElementWithGivenTextInTable(age.toString()),
                 "Given Age is not found in the table.");
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
@@ -61,7 +61,7 @@ public class EditRecordTests extends BaseTests {
 
         Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(firstName);
         String editedFirstName = webTables.getFirstNameFromModalWindow(line);
-        Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(firstName),
+        Assert.assertTrue(webTables.isAvailableElementWithGivenTextInTable(firstName),
                 "Given FirstName is not found in the table.");
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
@@ -81,7 +81,7 @@ public class EditRecordTests extends BaseTests {
 
         Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(lastName);
         String editedLastName = webTables.getLastNameFromModalWindow(line);
-        Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(lastName),
+        Assert.assertTrue(webTables.isAvailableElementWithGivenTextInTable(lastName),
                 "Given LastName is not found in the table.");
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
@@ -100,7 +100,7 @@ public class EditRecordTests extends BaseTests {
 
         Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(email);
         String editedEmail = webTables.getEmailFromModalWindow(line);
-        Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(email),
+        Assert.assertTrue(webTables.isAvailableElementWithGivenTextInTable(email),
                 "Given LastName is not found in the table.");
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
@@ -120,7 +120,7 @@ public class EditRecordTests extends BaseTests {
         Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(department);
         String editedDepartment = webTables.getDepartmentFromModalWindow(line);
         Assert.assertTrue(
-                webTables.isAvailableElementWithSuchTextInTable(department),
+                webTables.isAvailableElementWithGivenTextInTable(department),
                 "Given LastName is not found in the table.");
         Assert.assertEquals(
                 numbersOfGivenTextAfterEdit,

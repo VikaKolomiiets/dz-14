@@ -14,6 +14,9 @@ public class RegistrationFormTests extends BaseTests {
     private final int NEW_LINE_NUMBER = 4;
     private final int INPUT_FILED_NUMBER_IN_FORM = 6;
 
+    private final String BORDER_COLOR_GREEN = "rgb(206, 212, 218)";
+    private final String BORDER_COLOR_RED = "rgb(220, 53, 69)";
+
     @Description("Positive test")
     @Test
     public void testRegistrationFormAppeared() {
@@ -35,12 +38,12 @@ public class RegistrationFormTests extends BaseTests {
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         webTablesPage.setAllDataInRegistrationFormConfirm(firstName, lastName, email, age, salary, department);
 
-        if (webTablesPage.isAvailableElementWithSuchTextInTable(firstName)
-                && webTablesPage.isAvailableElementWithSuchTextInTable(lastName)
-                && webTablesPage.isAvailableElementWithSuchTextInTable(email)
-                && webTablesPage.isAvailableElementWithSuchTextInTable(age.toString())
-                && webTablesPage.isAvailableElementWithSuchTextInTable(salary.toString())
-                && webTablesPage.isAvailableElementWithSuchTextInTable(department)) {
+        if (webTablesPage.isAvailableElementWithGivenTextInTable(firstName)
+                && webTablesPage.isAvailableElementWithGivenTextInTable(lastName)
+                && webTablesPage.isAvailableElementWithGivenTextInTable(email)
+                && webTablesPage.isAvailableElementWithGivenTextInTable(age.toString())
+                && webTablesPage.isAvailableElementWithGivenTextInTable(salary.toString())
+                && webTablesPage.isAvailableElementWithGivenTextInTable(department)) {
             isClientDataAddedInTable = true;
         }
         Assert.assertTrue(isClientDataAddedInTable, "Client Data is not found in table.");
@@ -92,4 +95,12 @@ public class RegistrationFormTests extends BaseTests {
                 Integer.valueOf(employeeDataAddedLine.get("salary")), salary, "Salary is not equal.");
     }
 
+    @Description("Negative test")
+    @Test
+    public void testAlertByRedBorderOfAllElements(){
+        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
+        WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
+        Assert.assertTrue(webTablesPage.isRedBorderColorAllElementsWithEmptySubmit(),
+                "All Elements didn't change their border color");
+    }
 }
