@@ -27,7 +27,7 @@ public class EditRecordTests extends BaseTests {
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
                 "The numbers of the given text do not increase in the table.");
-        Assert.assertEquals(editedSalary, salary, "Given salary doesn't exist in salary input cell.");
+        Assert.assertEquals(editedSalary, salary, "Given text doesn't exist in Salary input cell.");
     }
 
     @Description("Positive test")
@@ -47,7 +47,7 @@ public class EditRecordTests extends BaseTests {
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
                 "The numbers of the given text do not increase in the table.");
-        Assert.assertEquals(editedAge, age, "The age does not exist in age input cell.");
+        Assert.assertEquals(editedAge, age, "Given text does not exist in Age input cell.");
     }
 
     @Description("Positive test")
@@ -66,7 +66,7 @@ public class EditRecordTests extends BaseTests {
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
                 "The numbers of the given text do not increase in the table.");
-        Assert.assertEquals(editedFirstName, firstName, "The age does not exist in FirstName input cell");
+        Assert.assertEquals(editedFirstName, firstName, "Given text does not exist in FirstName input cell");
 
     }
 
@@ -86,7 +86,7 @@ public class EditRecordTests extends BaseTests {
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
                 "The numbers of the given text do not increase in the table.");
-        Assert.assertEquals(editedLastName, lastName, "The given text does not exist in LastName input cell");
+        Assert.assertEquals(editedLastName, lastName, "Given text does not exist in LastName input cell");
     }
 
     @Description("Positive test")
@@ -105,6 +105,32 @@ public class EditRecordTests extends BaseTests {
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
                 "The numbers of the given text do not increase in the table.");
-        Assert.assertEquals(editedEmail, email, "The given text does not exist in E-mail input cell");
+        Assert.assertEquals(editedEmail, email, "Given text does not exist in E-mail input cell");
     }
+
+    @Description("Positive test")
+    @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-department-form")
+    public void testEditDepartmentInTablePositive(int line, String department){
+        var elementsPage = basePage.clickElementsPageButton();
+        var webTables = elementsPage.clickOnWebTablesComponent();
+        Integer numbersOfGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(department);
+
+        webTables.editDepartmentInAnyChosenLine(line, department);
+
+        Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(department);
+        String editedDepartment = webTables.getDepartmentFromModalWindow(line);
+        Assert.assertTrue(
+                webTables.isAvailableElementWithSuchTextInTable(department),
+                "Given LastName is not found in the table.");
+        Assert.assertEquals(
+                numbersOfGivenTextAfterEdit,
+                numbersOfGivenTextBeforeEdit + 1,
+                "The numbers of the given text do not increase in the table.");
+        Assert.assertEquals(
+                editedDepartment,
+                department,
+                "Given text does not exist in Department input cell");
+    }
+
+
 }

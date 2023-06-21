@@ -36,11 +36,18 @@ public class DataProviderForTests {
     }
 
     @DataProvider(name="edit-email-form")
-    public Object[][] setUpEmailInLineForPositiveTest(){
+    public Object[][] setUpEmailInLineForPositiveTests(){
         return new Object[][]{
                 {2, "ihb@gmail.com"},
                 {1, "krown@ukr.net"},
                 {3, "wolf@ii.com"}};
+    }
+    @DataProvider(name = "edit-department-form")
+    public Object[][] setDepartmentInLineForPositiveTests(){
+        return new Object[][]{
+                {1, "Pharmaceutical"},
+                {2, "Surgery"},
+                {3, "Laboratory"}};
     }
 
 
