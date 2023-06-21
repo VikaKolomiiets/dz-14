@@ -92,5 +92,4 @@ public class RegistrationFormTests extends BaseTests {
                 Integer.valueOf(employeeDataAddedLine.get("salary")), salary, "Salary is not equal.");
     }
 
-
 }

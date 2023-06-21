@@ -48,7 +48,7 @@ public class WebTablesPage extends AbstractPage {
         this.clickOnAddButton();
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
-        this.setUserEmailInModalWindow(email);
+        this.setEmailInModalWindow(email);
         this.setAgeInModalWindow(age);
         this.setSalaryInModalWindow(salary);
         this.setDepartmentInModalWindow(department);
@@ -65,7 +65,7 @@ public class WebTablesPage extends AbstractPage {
         this.clickOnEditorInLine(line);
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
-        this.setUserEmailInModalWindow(email);
+        this.setEmailInModalWindow(email);
         this.setAgeInModalWindow(age);
         this.setSalaryInModalWindow(salary);
         this.setDepartmentInModalWindow(department);
@@ -95,7 +95,7 @@ public class WebTablesPage extends AbstractPage {
     }
     public void editEmailInAnyChosenLine(int line, String email) {
         this.clickOnEditorInLine(line);
-        this.setUserEmailInModalWindow(email);
+        this.setEmailInModalWindow(email);
         this.clickOnSubmitButton();
     }
 
@@ -212,16 +212,18 @@ public class WebTablesPage extends AbstractPage {
         lastNameElement.clear();
         lastNameElement.sendKeys(lastName);
     }
-    public void setUserEmailInModalWindow(String email) {
+    public void setEmailInModalWindow(String email) {
         if (email == null || email.isEmpty()) {
             throw new NullPointerException("Please, fill the e-mail in");
         }
-        if (!email.contains("@")) {
-            throw new IllegalArgumentException(String.format("%s is not correct name for e-mail, please check for @.", email));
+        if ((!email.contains("@")) || (!email.contains("."))) {
+            throw new IllegalArgumentException(String.format("%s is not correct name for e-mail, please check for @ or dot.", email));
         }
+
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         emailElement.clear();
         emailElement.sendKeys(email);
+
     }
     public void setAgeInModalWindow(Integer age) {
         if (age == null) {
