@@ -39,12 +39,12 @@ public class WebTablesPage extends AbstractPage {
         return title.getText();
     }
 
-    public void setAllDataInRegistrationFormWithConfirmation(String firstName,
-                                                             String lastName,
-                                                             String email,
-                                                             Integer age,
-                                                             Integer salary,
-                                                             String department) {
+    public void setAllDataInRegistrationFormConfirm(String firstName,
+                                                    String lastName,
+                                                    String email,
+                                                    Integer age,
+                                                    Integer salary,
+                                                    String department) {
         this.clickOnAddButton();
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);

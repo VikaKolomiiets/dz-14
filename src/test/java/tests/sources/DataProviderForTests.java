@@ -5,7 +5,7 @@ import org.testng.annotations.DataProvider;
 public class DataProviderForTests {
 
     @DataProvider(name = "full-data-registration-form")
-    public static Object[][] setUpAllDataForRegistrationFormPositive() {
+    public static Object[][] setUpAllDataForRegistrationPositive() {
         return new Object[][]{
                 {"Agnesa", "Wolf", "agwf@gmail.com", 58, 5000, "Medicine"},
                 {"Boris", "Red", "boris@gmail.com", 60, 8000, "IT"}};
@@ -48,6 +48,14 @@ public class DataProviderForTests {
                 {1, "Pharmaceutical"},
                 {2, "Surgery"},
                 {3, "Laboratory"}};
+    }
+
+    @DataProvider(name = "edit-all-form")
+    public Object[][] setUpAllDataInLineForPositiveTest(){
+        return new Object[][]{
+            {1, "Agnesa", "Wolf", "agwf@gmail.com", 58, 5000, "Medicine"},
+            {2, "Boris", "Red", "boris@gmail.com", 60, 8000, "IT"},
+            {3, "Assa", "Bob", "11@22.ua", 21, 1122, "Surgery"}};
     }
 
 

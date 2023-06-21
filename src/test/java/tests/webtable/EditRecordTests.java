@@ -13,7 +13,7 @@ public class EditRecordTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-salary-form")
-    public void testEditSalaryInTablePositive(Integer line, Integer salary) {
+    public void testEditSalaryInChosenLineOfTablePositive(Integer line, Integer salary) {
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
         Integer numbersOfGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(salary.toString());
@@ -32,7 +32,7 @@ public class EditRecordTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-age-form")
-    public void testEditAgeInTablePositive(int line, Integer age){
+    public void testEditAgeInChosenLineOfTablePositive(int line, Integer age){
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
         Integer numbersOfGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(age.toString());
@@ -52,7 +52,7 @@ public class EditRecordTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-name-form")
-    public void testEditFirstNameInTablePositive(int line, String firstName){
+    public void testEditFirstNameInChosenLineOfTablePositive(int line, String firstName){
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
         Integer numbersOfGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(firstName);
@@ -72,7 +72,7 @@ public class EditRecordTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-name-form")
-    public void testEditLastNameInTablePositive(int line, String lastName){
+    public void testEditLastNameInChosenLineOfTablePositive(int line, String lastName){
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
         Integer numbersOfGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(lastName);
@@ -91,7 +91,7 @@ public class EditRecordTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-email-form")
-    public void testEditEmailInTablePositive(int line, String email){
+    public void testEditEmailInChosenLineOfTablePositive(int line, String email){
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
         Integer numbersOfGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(email);
@@ -110,7 +110,7 @@ public class EditRecordTests extends BaseTests {
 
     @Description("Positive test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-department-form")
-    public void testEditDepartmentInTablePositive(int line, String department){
+    public void testEditDepartmentInChosenLineOfTablePositive(int line, String department){
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
         Integer numbersOfGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(department);
@@ -131,6 +131,33 @@ public class EditRecordTests extends BaseTests {
                 department,
                 "Given text does not exist in Department input cell");
     }
+
+    @Description("Positive test")
+    @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-all-form")
+    public void testEditAllDataInChosenLineOfTablePositive(
+            int line, String firstName, String lastName, String email, Integer age, Integer salary, String department){
+        var elementsPage = basePage.clickElementsPageButton();
+        var webTables = elementsPage.clickOnWebTablesComponent();
+
+        webTables.editAllDataInAnyChosenLine(line, firstName, lastName, email, age, salary, department);
+
+        Map<String, String> editedData = webTables.getAllEmployeeDataInLineViaEditModalWindow(line);
+
+        Assert.assertEquals(
+                editedData.get("firstName"), firstName, "Given text is not exist in first Name cell.");
+        Assert.assertEquals(
+                editedData.get("lastName"), lastName, "Given text is not exist in last Name cell.");
+        Assert.assertEquals(
+                editedData.get("email"), email, "Given text is not exist in e-mail cell.");
+        Assert.assertEquals(
+                editedData.get("department"), department, "Given text is not exist in department cell.");
+        Assert.assertEquals(
+                editedData.get("age"), age.toString(), "Given text is not exist in age cell.");
+        Assert.assertEquals(
+                editedData.get("salary"), salary.toString(), "Given text is not exist in salary cell.");
+
+    }
+
 
 
 }

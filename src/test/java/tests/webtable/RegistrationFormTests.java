@@ -33,7 +33,7 @@ public class RegistrationFormTests extends BaseTests {
 
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
-        webTablesPage.setAllDataInRegistrationFormWithConfirmation(firstName, lastName, email, age, salary, department);
+        webTablesPage.setAllDataInRegistrationFormConfirm(firstName, lastName, email, age, salary, department);
 
         if (webTablesPage.isAvailableElementWithSuchTextInTable(firstName)
                 && webTablesPage.isAvailableElementWithSuchTextInTable(lastName)
@@ -54,7 +54,7 @@ public class RegistrationFormTests extends BaseTests {
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         int numberFillInCellsInTableBefore = webTablesPage.getAllFillInCellTexts().size();
-        webTablesPage.setAllDataInRegistrationFormWithConfirmation(firstName, lastName, email, age, salary, department);
+        webTablesPage.setAllDataInRegistrationFormConfirm(firstName, lastName, email, age, salary, department);
         int numberFillInCellsInTableAfter = webTablesPage.getAllFillInCellTexts().size();
 
         Assert.assertEquals(
@@ -75,21 +75,21 @@ public class RegistrationFormTests extends BaseTests {
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
 
-        webTablesPage.setAllDataInRegistrationFormWithConfirmation(firstName, lastName, email, age, salary, department);
-        Map<String, String> employeeDataFirstLine = webTablesPage.getAllEmployeeDataInLineViaEditModalWindow(NEW_LINE_NUMBER);
+        webTablesPage.setAllDataInRegistrationFormConfirm(firstName, lastName, email, age, salary, department);
+        Map<String, String> employeeDataAddedLine = webTablesPage.getAllEmployeeDataInLineViaEditModalWindow(NEW_LINE_NUMBER);
 
         Assert.assertEquals(
-                employeeDataFirstLine.get("firstName"), firstName, "First name is not equal.");
+                employeeDataAddedLine.get("firstName"), firstName, "First name is not equal.");
         Assert.assertEquals(
-                employeeDataFirstLine.get("lastName"), lastName, "Last name is not equal.");
+                employeeDataAddedLine.get("lastName"), lastName, "Last name is not equal.");
         Assert.assertEquals(
-                Integer.valueOf(employeeDataFirstLine.get("age")), age, "Age is not equal.");
+                Integer.valueOf(employeeDataAddedLine.get("age")), age, "Age is not equal.");
         Assert.assertEquals(
-                employeeDataFirstLine.get("email"), email, "E-mail is not equal.");
+                employeeDataAddedLine.get("email"), email, "E-mail is not equal.");
         Assert.assertEquals(
-                employeeDataFirstLine.get("department"), department, "Department is not equal.");
+                employeeDataAddedLine.get("department"), department, "Department is not equal.");
         Assert.assertEquals(
-                Integer.valueOf(employeeDataFirstLine.get("salary")), salary, "Salary is not equal.");
+                Integer.valueOf(employeeDataAddedLine.get("salary")), salary, "Salary is not equal.");
     }
 
 
