@@ -20,12 +20,14 @@ public class EditRecordTests extends BaseTests {
 
         webTables.editSalaryInAnyChosenLine(line, salary);
         Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(salary.toString());
+        Integer editedSalary = webTables.getSalaryFromModalWindow(line);
 
         Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(salary.toString()),
                 "The given text of salary is not found in the table.");
         Assert.assertEquals(numbersOfGivenTextAfterEdit,
                 numbersOfGivenTextBeforeEdit + 1,
                 "The numbers of the given text do not increase in the table.");
+        Assert.assertEquals(editedSalary, salary, "Given salary doesn't exist in salary input cell.");
     }
 
     @Description("Positive test")
@@ -47,8 +49,9 @@ public class EditRecordTests extends BaseTests {
                 "The numbers of the given text do not increase in the table.");
         Assert.assertEquals(editedAge, age, "The age does not exist in age input cell.");
     }
+
     @Description("Positive test")
-    @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-firstname-form")
+    @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-name-form")
     public void testEditFirstNameInTablePositive(int line, String firstName){
         var elementsPage = basePage.clickElementsPageButton();
         var webTables = elementsPage.clickOnWebTablesComponent();
@@ -65,5 +68,43 @@ public class EditRecordTests extends BaseTests {
                 "The numbers of the given text do not increase in the table.");
         Assert.assertEquals(editedFirstName, firstName, "The age does not exist in FirstName input cell");
 
+    }
+
+    @Description("Positive test")
+    @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-name-form")
+    public void testEditLastNameInTablePositive(int line, String lastName){
+        var elementsPage = basePage.clickElementsPageButton();
+        var webTables = elementsPage.clickOnWebTablesComponent();
+        Integer numbersOfGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(lastName);
+
+        webTables.editLastNameInAnyChosenLine(line, lastName);
+
+        Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(lastName);
+        String editedLastName = webTables.getLastNameFromModalWindow(line);
+        Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(lastName),
+                "Given LastName is not found in the table.");
+        Assert.assertEquals(numbersOfGivenTextAfterEdit,
+                numbersOfGivenTextBeforeEdit + 1,
+                "The numbers of the given text do not increase in the table.");
+        Assert.assertEquals(editedLastName, lastName, "The given text does not exist in LastName input cell");
+    }
+
+    @Description("Positive test")
+    @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "edit-email-form")
+    public void testEditEmailInTablePositive(int line, String email){
+        var elementsPage = basePage.clickElementsPageButton();
+        var webTables = elementsPage.clickOnWebTablesComponent();
+        Integer numbersOfGivenTextBeforeEdit = webTables.getNumbersOfGivenTextInList(email);
+
+        webTables.editEmailInAnyChosenLine(line, email);
+
+        Integer numbersOfGivenTextAfterEdit = webTables.getNumbersOfGivenTextInList(email);
+        String editedEmail = webTables.getEmailFromModalWindow(line);
+        Assert.assertTrue(webTables.isAvailableElementWithSuchTextInTable(email),
+                "Given LastName is not found in the table.");
+        Assert.assertEquals(numbersOfGivenTextAfterEdit,
+                numbersOfGivenTextBeforeEdit + 1,
+                "The numbers of the given text do not increase in the table.");
+        Assert.assertEquals(editedEmail, email, "The given text does not exist in E-mail input cell");
     }
 }

@@ -27,12 +27,20 @@ public class DataProviderForTests {
                 {3, 90}};
     }
 
-    @DataProvider(name = "edit-firstname-form")
-    public static Object[][] setUpFirstNameInLineForPositiveTests() {
+    @DataProvider(name = "edit-name-form")
+    public static Object[][] setUpNameInLineForPositiveTests() {
         return new Object[][]{
                 {3, "Aawaa"},
                 {1, "Krown"},
                 {2, "Wolf"}};
+    }
+
+    @DataProvider(name="edit-email-form")
+    public Object[][] setUpEmailInLineForPositiveTest(){
+        return new Object[][]{
+                {2, "ihb@gmail.com"},
+                {1, "krown@ukr.net"},
+                {3, "wolf@ii.com"}};
     }
 
 
