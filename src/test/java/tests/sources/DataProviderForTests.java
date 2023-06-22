@@ -71,6 +71,13 @@ public class DataProviderForTests {
                 {"Seventh", "Bob", "victory@.com", 21, 1122, "Surgery"},
                 {"Eighth", "Bob", "vika@22.victory", 21, 1122, "Surgery"}};
     }
+    @DataProvider(name = "age-red-alert")
+    public static Object[][] setUpAllDataWithAgeException(){
+        return new Object[][]{
+                {"First", "Wolf", "private@gmail.com", "-1", 5000, "Medicine"},
+                {"Second", "Red", "private@gmail.com", "-0", 8000, "IT"},
+                {"Third", "Red", "private@gmail.com", "Age", 8000, "IT"}};
+    }
 
 
 }

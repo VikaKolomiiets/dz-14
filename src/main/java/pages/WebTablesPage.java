@@ -73,6 +73,21 @@ public class WebTablesPage extends AbstractPage {
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
     }
+    public void setAllDataInRegistrationFormConfirmForAgeChecking(String firstName,
+                                                                    String lastName,
+                                                                    String email,
+                                                                    String age,
+                                                                    Integer salary,
+                                                                    String department) {
+        this.clickOnAddButton();
+        this.setFirstNameInModalWindow(firstName);
+        this.setLastNameInModalWindow(lastName);
+        this.setEmailInModalWindowWithoutException(email);
+        this.setAgeInModalWindowWithoutException(age);
+        this.setSalaryInModalWindow(salary);
+        this.setDepartmentInModalWindow(department);
+        this.clickOnSubmitButton();
+    }
 
     public void editAllDataInAnyChosenLine(int line,
                                            String firstName,
@@ -202,61 +217,49 @@ public class WebTablesPage extends AbstractPage {
         WebElement firstNameElement = this.findElementVisibleWithFluentWait(firstNameBy);
         return firstNameElement.getAttribute("value");
     }
-
     public String getLastNameFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement lastNameElement = this.findElementVisibleWithFluentWait(lastNameBy);
         return lastNameElement.getAttribute("value");
     }
-
     public Integer getAgeFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }
-
     public String getEmailFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         return emailElement.getAttribute("value");
     }
-
     public Integer getSalaryFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement ageElement = this.findElementVisibleWithFluentWait(salaryBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }
-
     public String getDepartmentFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement emailElement = this.findElementVisibleWithFluentWait(departmentBy);
         return emailElement.getAttribute("value");
     }
-
     public String getFirstNameBorderColor() {
         return this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color");
     }
-
     public String getLastNameBorderColor() {
         return this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color");
     }
-
-    public String getAgeNameBorderColor() {
+    public String getAgeBorderColor() {
         return this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color");
     }
-
     public String getEmailBorderColor() {
         return this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color");
     }
-
     public String getSalaryBorderColor() {
         return this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color");
     }
-
     public String getDepartmentBorderColor() {
         return this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color");
     }
-
     public void setFirstNameInModalWindow(String firstName) {
         if (firstName == null || firstName.isEmpty()) {
             throw new NullPointerException("Please, fill the first name in");
@@ -265,7 +268,6 @@ public class WebTablesPage extends AbstractPage {
         firstNameElement.clear();
         firstNameElement.sendKeys(firstName);
     }
-
     public void setLastNameInModalWindow(String lastName) {
         if (lastName == null || lastName.isEmpty()) {
             throw new NullPointerException("Please, fill the last name in");
@@ -274,7 +276,6 @@ public class WebTablesPage extends AbstractPage {
         lastNameElement.clear();
         lastNameElement.sendKeys(lastName);
     }
-
     public void setEmailInModalWindow(String email) {
         if (email == null || email.isEmpty()) {
             throw new NullPointerException("Please, fill the e-mail in");
@@ -289,23 +290,23 @@ public class WebTablesPage extends AbstractPage {
         emailElement.clear();
         emailElement.sendKeys(email);
     }
-
     public void setEmailInModalWindowWithoutException(String email) {
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         emailElement.clear();
         emailElement.sendKeys(email);
     }
-
     public void setAgeInModalWindow(Integer age) {
         if (age == null) {
             throw new NullPointerException("Please, fill the age in");
         }
-        if (age < 14) {
-            throw new IllegalArgumentException(String.format("$d is not acceptable age for employee for this place", age));
-        }
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
         ageElement.clear();
         ageElement.sendKeys(age.toString());
+    }
+    public void setAgeInModalWindowWithoutException(String age) {
+        WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
+        ageElement.clear();
+        ageElement.sendKeys(age);
     }
 
     public void setSalaryInModalWindow(Integer salary) {

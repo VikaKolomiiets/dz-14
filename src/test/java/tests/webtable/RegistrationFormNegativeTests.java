@@ -2,8 +2,6 @@ package tests.webtable;
 
 import io.qameta.allure.Description;
 
-import java.awt.Color;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.ElementsPage;
@@ -12,7 +10,6 @@ import tests.base.BaseTests;
 import tests.sources.DataProviderForTests;
 import utils.ColorUtils;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegistrationFormNegativeTests extends BaseTests {
@@ -57,8 +54,21 @@ public class RegistrationFormNegativeTests extends BaseTests {
 
         Assert.assertTrue(
             ColorUtils.isColorInGivenRange(actualBorderColor, BORDER_COLOR_RED),
-                String.format("Alert is not appe" +
-                        "ared via incorrect email %s", email));
+                String.format("Alert is not appeared via incorrect email %s", email));
+    }
+
+    @Description("Negative test")
+    @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "age-red-alert")
+    public void testAgeExceptionByRedBorderAlert(
+            String firstName, String lastName, String email, String age, Integer salary, String department
+    ){
+        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
+        WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
+        webTablesPage.setAllDataInRegistrationFormConfirmForAgeChecking(firstName, lastName, email, age, salary, department);
+        String actualBorderColor = webTablesPage.getAgeBorderColor();
+        Assert.assertTrue(
+                ColorUtils.isColorInGivenRange(actualBorderColor, BORDER_COLOR_RED),
+                String.format("Alert is not appeared via incorrect email %s", age));
     }
 
 
