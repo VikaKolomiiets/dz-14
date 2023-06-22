@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.locators.RelativeLocator;
+import utils.ColorUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -56,12 +57,13 @@ public class WebTablesPage extends AbstractPage {
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
     }
+
     public void setAllDataInRegistrationFormConfirmForEmailChecking(String firstName,
-                                                    String lastName,
-                                                    String email,
-                                                    Integer age,
-                                                    Integer salary,
-                                                    String department) {
+                                                                    String lastName,
+                                                                    String email,
+                                                                    Integer age,
+                                                                    Integer salary,
+                                                                    String department) {
         this.clickOnAddButton();
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
@@ -88,31 +90,37 @@ public class WebTablesPage extends AbstractPage {
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
     }
+
     public void editSalaryInAnyChosenLine(int line, Integer salary) {
         this.clickOnEditorInLine(line);
         this.setSalaryInModalWindow(salary);
         this.clickOnSubmitButton();
     }
+
     public void editAgeInAnyChosenLine(int line, Integer age) {
         this.clickOnEditorInLine(line);
         this.setAgeInModalWindow(age);
         this.clickOnSubmitButton();
     }
+
     public void editFirstNameInAnyChosenLine(int line, String firstName) {
         this.clickOnEditorInLine(line);
         this.setFirstNameInModalWindow(firstName);
         this.clickOnSubmitButton();
     }
+
     public void editLastNameInAnyChosenLine(int line, String lastName) {
         this.clickOnEditorInLine(line);
         this.setLastNameInModalWindow(lastName);
         this.clickOnSubmitButton();
     }
+
     public void editEmailInAnyChosenLine(int line, String email) {
         this.clickOnEditorInLine(line);
         this.setEmailInModalWindow(email);
         this.clickOnSubmitButton();
     }
+
     public void editDepartmentInAnyChosenLine(int line, String department) {
         this.clickOnEditorInLine(line);
         this.setDepartmentInModalWindow(department);
@@ -122,12 +130,9 @@ public class WebTablesPage extends AbstractPage {
     public boolean isAvailableElementWithGivenTextInTable(String text) {
         String byPath = String.format("//div[contains(text(), '%s')]", text);
         WebElement cellWithText = this.findElementVisibleWithFluentWait(By.xpath(byPath));
-        if (cellWithText != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return cellWithText != null;
     }
+
     public List<String> getAllFillInCellTexts() {
 
         List<WebElement> allTableCells = findElementsVisibleWithFluentWait(tableCells);
@@ -138,6 +143,7 @@ public class WebTablesPage extends AbstractPage {
                 .collect(Collectors.toList());
         return allExistedTexts;
     }
+
     public Integer getNumbersOfGivenTextInList(String text) {
         List<String> givenTexts = getAllFillInCellTexts()
                 .stream()
@@ -145,6 +151,7 @@ public class WebTablesPage extends AbstractPage {
                 .collect(Collectors.toList());
         return givenTexts.size();
     }
+
     public String getDepartmentInTableInGivenLine(int line) {
         String chosenLine = String.format("edit-record-%d", line);
         WebElement editButton = findElementVisibleWithFluentWait(By.id(chosenLine));
@@ -155,6 +162,7 @@ public class WebTablesPage extends AbstractPage {
                         .toLeftOf(editButton));
         return departmentElement.getText();
     }
+
     public Map<String, String> getAllEmployeeDataInLineViaEditModalWindow(int line) {
         String chosenLine = String.format("edit-record-%d", line);
         findElementVisibleWithFluentWait(By.id(chosenLine)).click();
@@ -169,21 +177,22 @@ public class WebTablesPage extends AbstractPage {
 
         return employeeDataMap;
     }
+
     public boolean isRedBorderColorAllElementsWithEmptySubmit() {
         this.clickOnAddButton();
         this.clickOnSubmitButton();
-
-        if (this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
-                && this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
-                && this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
-                && this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
-                && this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color").equals(BORDER_COLOR_RED)
-                && this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color").equals(BORDER_COLOR_RED)) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return (ColorUtils.isColorInGivenRange(
+                this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color"), BORDER_COLOR_RED))
+                && ColorUtils.isColorInGivenRange(
+                this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color"), BORDER_COLOR_RED)
+                && ColorUtils.isColorInGivenRange(
+                this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color"), BORDER_COLOR_RED)
+                && ColorUtils.isColorInGivenRange(
+                this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color"), BORDER_COLOR_RED)
+                && ColorUtils.isColorInGivenRange(
+                this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color"), BORDER_COLOR_RED)
+                && ColorUtils.isColorInGivenRange(
+                this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color"), BORDER_COLOR_RED);
     }
 
 
@@ -193,21 +202,25 @@ public class WebTablesPage extends AbstractPage {
         WebElement firstNameElement = this.findElementVisibleWithFluentWait(firstNameBy);
         return firstNameElement.getAttribute("value");
     }
+
     public String getLastNameFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement lastNameElement = this.findElementVisibleWithFluentWait(lastNameBy);
         return lastNameElement.getAttribute("value");
     }
+
     public Integer getAgeFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }
+
     public String getEmailFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         return emailElement.getAttribute("value");
     }
+
     public Integer getSalaryFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement ageElement = this.findElementVisibleWithFluentWait(salaryBy);
@@ -219,21 +232,27 @@ public class WebTablesPage extends AbstractPage {
         WebElement emailElement = this.findElementVisibleWithFluentWait(departmentBy);
         return emailElement.getAttribute("value");
     }
+
     public String getFirstNameBorderColor() {
         return this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color");
     }
+
     public String getLastNameBorderColor() {
         return this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color");
     }
+
     public String getAgeNameBorderColor() {
         return this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color");
     }
+
     public String getEmailBorderColor() {
         return this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color");
     }
+
     public String getSalaryBorderColor() {
         return this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color");
     }
+
     public String getDepartmentBorderColor() {
         return this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color");
     }
@@ -246,6 +265,7 @@ public class WebTablesPage extends AbstractPage {
         firstNameElement.clear();
         firstNameElement.sendKeys(firstName);
     }
+
     public void setLastNameInModalWindow(String lastName) {
         if (lastName == null || lastName.isEmpty()) {
             throw new NullPointerException("Please, fill the last name in");
@@ -254,6 +274,7 @@ public class WebTablesPage extends AbstractPage {
         lastNameElement.clear();
         lastNameElement.sendKeys(lastName);
     }
+
     public void setEmailInModalWindow(String email) {
         if (email == null || email.isEmpty()) {
             throw new NullPointerException("Please, fill the e-mail in");
@@ -261,24 +282,20 @@ public class WebTablesPage extends AbstractPage {
         Pattern endPattern = Pattern.compile(".[A-Za-z]{2,5}");
         Pattern startPattern = Pattern.compile("[a-zA-Z0-9]@");
         Pattern meddlePattern = Pattern.compile("@[a-zA-Z0-9].");
-        if(!(endPattern.matcher(email).find()) || !(startPattern.matcher(email).find()) || !(meddlePattern.matcher(email).find())){
+        if (!(endPattern.matcher(email).find()) || !(startPattern.matcher(email).find()) || !(meddlePattern.matcher(email).find())) {
             throw new IllegalArgumentException(String.format("%s is not correct pattern for e-mail, please check ", email));
         }
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         emailElement.clear();
         emailElement.sendKeys(email);
     }
+
     public void setEmailInModalWindowWithoutException(String email) {
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         emailElement.clear();
         emailElement.sendKeys(email);
     }
 
-    public void setEmailInModalWindowWithoutCheckingInput(String email) {
-        WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
-        emailElement.clear();
-        emailElement.sendKeys(email);
-    }
     public void setAgeInModalWindow(Integer age) {
         if (age == null) {
             throw new NullPointerException("Please, fill the age in");
@@ -290,6 +307,7 @@ public class WebTablesPage extends AbstractPage {
         ageElement.clear();
         ageElement.sendKeys(age.toString());
     }
+
     public void setSalaryInModalWindow(Integer salary) {
         if (salary == null) {
             throw new NullPointerException("Please, fill the salary in");
@@ -301,6 +319,7 @@ public class WebTablesPage extends AbstractPage {
         salaryElement.clear();
         salaryElement.sendKeys(salary.toString());
     }
+
     public void setDepartmentInModalWindow(String department) {
         if (department == null || department.isEmpty()) {
             throw new NullPointerException("Please, fill in the Department");
@@ -317,22 +336,27 @@ public class WebTablesPage extends AbstractPage {
         WebElement firstNameElement = this.findElementVisibleWithFluentWait(firstNameBy);
         return firstNameElement.getAttribute("value");
     }
+
     private String getLastNameFromModalWindow() {
         WebElement lastNameElement = this.findElementVisibleWithFluentWait(lastNameBy);
         return lastNameElement.getAttribute("value");
     }
+
     private Integer getAgeFromModalWindow() {
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }
+
     private String getEmailFromModalWindow() {
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         return emailElement.getAttribute("value");
     }
+
     private Integer getSalaryFromModalWindow() {
         WebElement ageElement = this.findElementVisibleWithFluentWait(salaryBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }
+
     private String getDepartmentFromModalWindow() {
         WebElement emailElement = this.findElementVisibleWithFluentWait(departmentBy);
         return emailElement.getAttribute("value");
@@ -357,10 +381,6 @@ public class WebTablesPage extends AbstractPage {
         this.findElementVisibleWithFluentWait(By.id(chosenLine)).click();
     }
     //endregion
-
-
-
-
 
 
 }
