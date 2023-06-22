@@ -15,16 +15,16 @@ import java.util.regex.Pattern;
 public class RegistrationFormNegativeTests extends BaseTests {
 
     private static final String BORDER_COLOR_RED = "rgb(220, 53, 69)";
+    private static final String ALERT_IMAGE = "fill='none' stroke='%23dc3545'";
 
     @Description("Negative test")
     @Test
     public void testRedBorderAlertOfAllElements() {
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
-        Assert.assertTrue(webTablesPage.isRedBorderColorAllElementsWithEmptySubmit(),
+        Assert.assertTrue(webTablesPage.isAlertImageExistsWhenAllElementsEmptySubmit(),
                 "All Elements didn't change their border color");
     }
-
 
     @Description("Negative test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "email-red-alert")
@@ -33,10 +33,10 @@ public class RegistrationFormNegativeTests extends BaseTests {
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         webTablesPage.setAllDataInFormConfirmToCheckEmailAlert(firstName, lastName, email, age, salary, department);
-        String actualBorderColor = webTablesPage.getEmailBorderColor();
+        String actualImage = webTablesPage.getEmailAlertImage();
 
         Assert.assertTrue(
-            ColorUtils.isColorInGivenRange(actualBorderColor, BORDER_COLOR_RED),
+                actualImage.contains(ALERT_IMAGE),
                 String.format("Alert is not appeared via incorrect email %s", email));
     }
 
@@ -48,24 +48,25 @@ public class RegistrationFormNegativeTests extends BaseTests {
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         webTablesPage.setAllDataInFormToCheckAgeAlert(firstName, lastName, email, age, salary, department);
-        String actualBorderColor = webTablesPage.getAgeBorderColor();
+        String actualImage = webTablesPage.getAgeAlerImage();
         Assert.assertTrue(
-                ColorUtils.isColorInGivenRange(actualBorderColor, BORDER_COLOR_RED),
+                actualImage.contains(ALERT_IMAGE),
                 String.format("Alert is not appeared via incorrect age %s", age));
     }
 
+
     @Description("Negative test")
     @Test(dataProviderClass = DataProviderForTests.class, dataProvider = "salary-red-alert")
-    public void testSalaryExceptionByRedBorderAlert(
-            String firstName, String lastName, String email, Integer age, String salary, String department
-    ){
+    public void testSalaryExceptionByAlertImageExists(
+            String firstName, String lastName, String email, Integer age, String salary, String department){
         ElementsPage elementsPage = this.basePage.clickElementsPageButton();
         WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
         webTablesPage.setAllDataInFormToCheckSalaryAlert(firstName, lastName, email, age, salary, department);
-        String actualBorderColor = webTablesPage.getSalaryBorderColor();
+        String actualImage = webTablesPage.getSalaryAlertImage();
         Assert.assertTrue(
-                ColorUtils.isColorInGivenRange(actualBorderColor, BORDER_COLOR_RED),
+                actualImage.contains(ALERT_IMAGE),
                 String.format("Alert is not appeared via incorrect salary %s", salary));
     }
-
 }
+
+

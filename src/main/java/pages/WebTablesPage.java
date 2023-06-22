@@ -30,7 +30,7 @@ public class WebTablesPage extends AbstractPage {
     private By editButtonThirdLine = By.id("edit-record-3");
 
     private final String EMPTY_CELL_TEXT = "&nbsp;";
-    private final String BORDER_COLOR_RED = "rgb(220, 53, 69)";
+    private static final String ALERT_IMAGE = "fill='none' stroke='%23dc3545'";
 
     public WebTablesPage(WebDriver driver) {
         super(driver);
@@ -210,22 +210,22 @@ public class WebTablesPage extends AbstractPage {
         return employeeDataMap;
     }
 
-    public boolean isRedBorderColorAllElementsWithEmptySubmit() {
+    public boolean isAlertImageExistsWhenAllElementsEmptySubmit() {
         this.clickOnAddButton();
         this.clickOnSubmitButton();
+        String departmentAlert = this.findElementRefreshedWithFluentWait(departmentBy).getCssValue("background-image");
+        String salaryAlert = this.findElementRefreshedWithFluentWait(salaryBy).getCssValue("background-image");
+        String emailAlert = this.findElementRefreshedWithFluentWait(userEmailBy).getCssValue("background-image");
+        String ageAlert = this.findElementRefreshedWithFluentWait(ageBy).getCssValue("background-image");
+        String lastNameAlert= this.findElementRefreshedWithFluentWait(lastNameBy).getCssValue("background-image");
+        String forstNameAlert =  this.findElementRefreshedWithFluentWait(firstNameBy).getCssValue("background-image");
 
-        return (ColorUtils.isColorInGivenRange(
-                this.findElementRefreshedWithFluentWait(departmentBy).getCssValue("border-color"), BORDER_COLOR_RED))
-                && ColorUtils.isColorInGivenRange(
-                this.findElementRefreshedWithFluentWait(salaryBy).getCssValue("border-color"), BORDER_COLOR_RED)
-                && ColorUtils.isColorInGivenRange(
-                this.findElementRefreshedWithFluentWait(userEmailBy).getCssValue("border-color"), BORDER_COLOR_RED)
-                && ColorUtils.isColorInGivenRange(
-                this.findElementRefreshedWithFluentWait(ageBy).getCssValue("border-color"), BORDER_COLOR_RED)
-                && ColorUtils.isColorInGivenRange(
-                this.findElementRefreshedWithFluentWait(lastNameBy).getCssValue("border-color"), BORDER_COLOR_RED)
-                && ColorUtils.isColorInGivenRange(
-                this.findElementRefreshedWithFluentWait(firstNameBy).getCssValue("border-color"), BORDER_COLOR_RED);
+        return (departmentAlert.contains(ALERT_IMAGE)
+                && salaryAlert.contains(ALERT_IMAGE)
+                && emailAlert.contains(ALERT_IMAGE)
+                && ageAlert.contains(ALERT_IMAGE)
+                && lastNameAlert.contains(ALERT_IMAGE)
+                && forstNameAlert.contains(ALERT_IMAGE));
     }
 
 
@@ -266,29 +266,19 @@ public class WebTablesPage extends AbstractPage {
         return emailElement.getAttribute("value");
     }
 
-    public String getFirstNameBorderColor() {
-        return this.findElementRefreshedWithFluentWait(firstNameBy).getCssValue("border-color");
+    public String getAgeAlerImage() {
+        return this.findElementRefreshedWithFluentWait(ageBy).getCssValue("background-image");
     }
 
-    public String getLastNameBorderColor() {
-        return this.findElementRefreshedWithFluentWait(lastNameBy).getCssValue("border-color");
+    public String getEmailAlertImage() {
+        return this.findElementRefreshedWithFluentWait(userEmailBy).getCssValue("background-image");
     }
 
-    public String getAgeBorderColor() {
-        return this.findElementRefreshedWithFluentWait(ageBy).getCssValue("border-color");
+    public String getSalaryAlertImage() {
+        return this.findElementRefreshedWithFluentWait(salaryBy).getCssValue("background-image");
     }
 
-    public String getEmailBorderColor() {
-        return this.findElementRefreshedWithFluentWait(userEmailBy).getCssValue("border-color");
-    }
 
-    public String getSalaryBorderColor() {
-        return this.findElementRefreshedWithFluentWait(salaryBy).getCssValue("border-color");
-    }
-
-    public String getDepartmentBorderColor() {
-        return this.findElementRefreshedWithFluentWait(departmentBy).getCssValue("border-color");
-    }
 
     public void setFirstNameInModalWindow(String firstName) {
         if (firstName == null || firstName.isEmpty()) {
