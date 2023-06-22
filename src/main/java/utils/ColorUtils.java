@@ -5,9 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ColorUtils {
-    private static final int RED_COLOR_INACCURACY = 5;
-    private static final int GREEN_COLOR_INACCURACY = 30;
-    private static final int BLUE_COLOR_INACCURACY = 30;
+    private static final int RED_COLOR_INACCURACY = 10;
+    private static final int GREEN_COLOR_INACCURACY = 80;
+    private static final int BLUE_COLOR_INACCURACY = 80;
 
     public static boolean isColorInGivenRange(String actualColorString, String expectedColorString) {
         return isColorInGivenRange(

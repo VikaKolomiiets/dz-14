@@ -59,7 +59,7 @@ public class DataProviderForTests {
     }
 
     @DataProvider(name = "email-red-alert")
-    public static Object[][] setUpAllDataWithEmailException(){
+    public static Object[][] setUpAllDataForEmailException(){
         return new Object[][]{
                 {"First", "Wolf", "@gmail.com", 58, 5000, "Medicine"},
                 {"Second", "Red", "gmail.com", 60, 8000, "IT"},
@@ -72,11 +72,19 @@ public class DataProviderForTests {
                 {"Eighth", "Bob", "vika@22.victory", 21, 1122, "Surgery"}};
     }
     @DataProvider(name = "age-red-alert")
-    public static Object[][] setUpAllDataWithAgeException(){
+    public static Object[][] setUpAllDataForAgeException(){
         return new Object[][]{
                 {"First", "Wolf", "private@gmail.com", "-1", 5000, "Medicine"},
                 {"Second", "Red", "private@gmail.com", "-0", 8000, "IT"},
                 {"Third", "Red", "private@gmail.com", "Age", 8000, "IT"}};
+    }
+
+    @DataProvider(name = "salary-red-alert")
+    public static Object[][] setUpAllDataFotSalaryException(){
+        return new Object[][]{
+                {"First", "Wolf", "private@gmail.com", 15, "-1", "Medicine"},
+                {"Second", "Red", "private@gmail.com", 901, "-0", "IT"},
+                {"Third", "Red", "private@gmail.com", 1, "Age", "IT"}};
     }
 
 

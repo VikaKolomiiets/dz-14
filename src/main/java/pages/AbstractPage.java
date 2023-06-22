@@ -21,6 +21,9 @@ public abstract class AbstractPage {
         return driver;
     }
 
+    public void waitImplicit(){
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
     public WebElement findElementVisibleWithFluentWait(By by){
         FluentWait fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(30))
@@ -28,6 +31,15 @@ public abstract class AbstractPage {
                 .ignoring(Exception.class);
 
         fluentWait.until(ExpectedConditions.visibilityOf(this.driver.findElement(by)));
+        return this.driver.findElement(by);
+    }
+    public WebElement findElementRefreshedWithFluentWait(By by){
+        FluentWait fluentWait = new FluentWait<>(driver)
+                .withTimeout(Duration.ofSeconds(30))
+                .pollingEvery(Duration.ofSeconds(3))
+                .ignoring(Exception.class);
+
+        fluentWait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(this.driver.findElement(by))));
         return this.driver.findElement(by);
     }
 

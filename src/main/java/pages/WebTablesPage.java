@@ -58,12 +58,12 @@ public class WebTablesPage extends AbstractPage {
         this.clickOnSubmitButton();
     }
 
-    public void setAllDataInRegistrationFormConfirmForEmailChecking(String firstName,
-                                                                    String lastName,
-                                                                    String email,
-                                                                    Integer age,
-                                                                    Integer salary,
-                                                                    String department) {
+    public void setAllDataInFormConfirmToCheckEmailAlert(String firstName,
+                                                         String lastName,
+                                                         String email,
+                                                         Integer age,
+                                                         Integer salary,
+                                                         String department) {
         this.clickOnAddButton();
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
@@ -73,18 +73,35 @@ public class WebTablesPage extends AbstractPage {
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
     }
-    public void setAllDataInRegistrationFormConfirmForAgeChecking(String firstName,
-                                                                    String lastName,
-                                                                    String email,
-                                                                    String age,
-                                                                    Integer salary,
-                                                                    String department) {
+
+    public void setAllDataInFormToCheckAgeAlert(String firstName,
+                                                String lastName,
+                                                String email,
+                                                String age,
+                                                Integer salary,
+                                                String department) {
         this.clickOnAddButton();
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
         this.setEmailInModalWindowWithoutException(email);
         this.setAgeInModalWindowWithoutException(age);
         this.setSalaryInModalWindow(salary);
+        this.setDepartmentInModalWindow(department);
+        this.clickOnSubmitButton();
+    }
+
+    public void setAllDataInFormToCheckSalaryAlert(String firstName,
+                                                   String lastName,
+                                                   String email,
+                                                   Integer age,
+                                                   String salary,
+                                                   String department) {
+        this.clickOnAddButton();
+        this.setFirstNameInModalWindow(firstName);
+        this.setLastNameInModalWindow(lastName);
+        this.setEmailInModalWindowWithoutException(email);
+        this.setAgeInModalWindow(age);
+        this.setSalaryInModalWindowWithoutException(salary);
         this.setDepartmentInModalWindow(department);
         this.clickOnSubmitButton();
     }
@@ -196,18 +213,19 @@ public class WebTablesPage extends AbstractPage {
     public boolean isRedBorderColorAllElementsWithEmptySubmit() {
         this.clickOnAddButton();
         this.clickOnSubmitButton();
+
         return (ColorUtils.isColorInGivenRange(
-                this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color"), BORDER_COLOR_RED))
+                this.findElementRefreshedWithFluentWait(departmentBy).getCssValue("border-color"), BORDER_COLOR_RED))
                 && ColorUtils.isColorInGivenRange(
-                this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color"), BORDER_COLOR_RED)
+                this.findElementRefreshedWithFluentWait(salaryBy).getCssValue("border-color"), BORDER_COLOR_RED)
                 && ColorUtils.isColorInGivenRange(
-                this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color"), BORDER_COLOR_RED)
+                this.findElementRefreshedWithFluentWait(userEmailBy).getCssValue("border-color"), BORDER_COLOR_RED)
                 && ColorUtils.isColorInGivenRange(
-                this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color"), BORDER_COLOR_RED)
+                this.findElementRefreshedWithFluentWait(ageBy).getCssValue("border-color"), BORDER_COLOR_RED)
                 && ColorUtils.isColorInGivenRange(
-                this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color"), BORDER_COLOR_RED)
+                this.findElementRefreshedWithFluentWait(lastNameBy).getCssValue("border-color"), BORDER_COLOR_RED)
                 && ColorUtils.isColorInGivenRange(
-                this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color"), BORDER_COLOR_RED);
+                this.findElementRefreshedWithFluentWait(firstNameBy).getCssValue("border-color"), BORDER_COLOR_RED);
     }
 
 
@@ -217,49 +235,61 @@ public class WebTablesPage extends AbstractPage {
         WebElement firstNameElement = this.findElementVisibleWithFluentWait(firstNameBy);
         return firstNameElement.getAttribute("value");
     }
+
     public String getLastNameFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement lastNameElement = this.findElementVisibleWithFluentWait(lastNameBy);
         return lastNameElement.getAttribute("value");
     }
+
     public Integer getAgeFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }
+
     public String getEmailFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         return emailElement.getAttribute("value");
     }
+
     public Integer getSalaryFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement ageElement = this.findElementVisibleWithFluentWait(salaryBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }
+
     public String getDepartmentFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement emailElement = this.findElementVisibleWithFluentWait(departmentBy);
         return emailElement.getAttribute("value");
     }
+
     public String getFirstNameBorderColor() {
-        return this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color");
+        return this.findElementRefreshedWithFluentWait(firstNameBy).getCssValue("border-color");
     }
+
     public String getLastNameBorderColor() {
-        return this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color");
+        return this.findElementRefreshedWithFluentWait(lastNameBy).getCssValue("border-color");
     }
+
     public String getAgeBorderColor() {
-        return this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color");
+        return this.findElementRefreshedWithFluentWait(ageBy).getCssValue("border-color");
     }
+
     public String getEmailBorderColor() {
-        return this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color");
+        return this.findElementRefreshedWithFluentWait(userEmailBy).getCssValue("border-color");
     }
+
     public String getSalaryBorderColor() {
-        return this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color");
+        return this.findElementRefreshedWithFluentWait(salaryBy).getCssValue("border-color");
     }
+
     public String getDepartmentBorderColor() {
-        return this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color");
+        return this.findElementRefreshedWithFluentWait(departmentBy).getCssValue("border-color");
     }
+
     public void setFirstNameInModalWindow(String firstName) {
         if (firstName == null || firstName.isEmpty()) {
             throw new NullPointerException("Please, fill the first name in");
@@ -268,6 +298,7 @@ public class WebTablesPage extends AbstractPage {
         firstNameElement.clear();
         firstNameElement.sendKeys(firstName);
     }
+
     public void setLastNameInModalWindow(String lastName) {
         if (lastName == null || lastName.isEmpty()) {
             throw new NullPointerException("Please, fill the last name in");
@@ -276,6 +307,7 @@ public class WebTablesPage extends AbstractPage {
         lastNameElement.clear();
         lastNameElement.sendKeys(lastName);
     }
+
     public void setEmailInModalWindow(String email) {
         if (email == null || email.isEmpty()) {
             throw new NullPointerException("Please, fill the e-mail in");
@@ -290,11 +322,13 @@ public class WebTablesPage extends AbstractPage {
         emailElement.clear();
         emailElement.sendKeys(email);
     }
+
     public void setEmailInModalWindowWithoutException(String email) {
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         emailElement.clear();
         emailElement.sendKeys(email);
     }
+
     public void setAgeInModalWindow(Integer age) {
         if (age == null) {
             throw new NullPointerException("Please, fill the age in");
@@ -303,6 +337,7 @@ public class WebTablesPage extends AbstractPage {
         ageElement.clear();
         ageElement.sendKeys(age.toString());
     }
+
     public void setAgeInModalWindowWithoutException(String age) {
         WebElement ageElement = this.findElementVisibleWithFluentWait(ageBy);
         ageElement.clear();
@@ -311,14 +346,20 @@ public class WebTablesPage extends AbstractPage {
 
     public void setSalaryInModalWindow(Integer salary) {
         if (salary == null) {
-            throw new NullPointerException("Please, fill the salary in");
+            throw new NullPointerException("Please, fill the salary in.");
         }
-        if (salary < 100) {
-            throw new IllegalArgumentException(String.format("$d should be more than 100.00 or more", salary));
+        if (salary < 0) {
+            throw new IllegalArgumentException(String.format("$d should be 0 or more.", salary));
         }
         WebElement salaryElement = this.findElementVisibleWithFluentWait(salaryBy);
         salaryElement.clear();
         salaryElement.sendKeys(salary.toString());
+    }
+    public void setSalaryInModalWindowWithoutException(String salary) {
+
+        WebElement salaryElement = this.findElementVisibleWithFluentWait(salaryBy);
+        salaryElement.clear();
+        salaryElement.sendKeys(salary);
     }
 
     public void setDepartmentInModalWindow(String department) {
