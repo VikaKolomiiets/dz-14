@@ -14,8 +14,7 @@ public class RegistrationFormTests extends BaseTests {
     private final int NEW_LINE_NUMBER = 4;
     private final int INPUT_FILED_NUMBER_IN_FORM = 6;
 
-    private final String BORDER_COLOR_GREEN = "rgb(206, 212, 218)";
-    private final String BORDER_COLOR_RED = "rgb(220, 53, 69)";
+
 
     @Description("Positive test")
     @Test
@@ -95,12 +94,4 @@ public class RegistrationFormTests extends BaseTests {
                 Integer.valueOf(employeeDataAddedLine.get("salary")), salary, "Salary is not equal.");
     }
 
-    @Description("Negative test")
-    @Test
-    public void testAlertByRedBorderOfAllElements(){
-        ElementsPage elementsPage = this.basePage.clickElementsPageButton();
-        WebTablesPage webTablesPage = elementsPage.clickOnWebTablesComponent();
-        Assert.assertTrue(webTablesPage.isRedBorderColorAllElementsWithEmptySubmit(),
-                "All Elements didn't change their border color");
-    }
 }

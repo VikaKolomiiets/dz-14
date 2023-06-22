@@ -8,6 +8,7 @@ import org.openqa.selenium.support.locators.RelativeLocator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class WebTablesPage extends AbstractPage {
@@ -50,6 +51,21 @@ public class WebTablesPage extends AbstractPage {
         this.setFirstNameInModalWindow(firstName);
         this.setLastNameInModalWindow(lastName);
         this.setEmailInModalWindow(email);
+        this.setAgeInModalWindow(age);
+        this.setSalaryInModalWindow(salary);
+        this.setDepartmentInModalWindow(department);
+        this.clickOnSubmitButton();
+    }
+    public void setAllDataInRegistrationFormConfirmForEmailChecking(String firstName,
+                                                    String lastName,
+                                                    String email,
+                                                    Integer age,
+                                                    Integer salary,
+                                                    String department) {
+        this.clickOnAddButton();
+        this.setFirstNameInModalWindow(firstName);
+        this.setLastNameInModalWindow(lastName);
+        this.setEmailInModalWindowWithoutException(email);
         this.setAgeInModalWindow(age);
         this.setSalaryInModalWindow(salary);
         this.setDepartmentInModalWindow(department);
@@ -197,10 +213,29 @@ public class WebTablesPage extends AbstractPage {
         WebElement ageElement = this.findElementVisibleWithFluentWait(salaryBy);
         return Integer.valueOf(ageElement.getAttribute("value"));
     }
+
     public String getDepartmentFromModalWindow(int line) {
         this.clickOnEditorInLine(line);
         WebElement emailElement = this.findElementVisibleWithFluentWait(departmentBy);
         return emailElement.getAttribute("value");
+    }
+    public String getFirstNameBorderColor() {
+        return this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color");
+    }
+    public String getLastNameBorderColor() {
+        return this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color");
+    }
+    public String getAgeNameBorderColor() {
+        return this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color");
+    }
+    public String getEmailBorderColor() {
+        return this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color");
+    }
+    public String getSalaryBorderColor() {
+        return this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color");
+    }
+    public String getDepartmentBorderColor() {
+        return this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color");
     }
 
     public void setFirstNameInModalWindow(String firstName) {
@@ -223,14 +258,26 @@ public class WebTablesPage extends AbstractPage {
         if (email == null || email.isEmpty()) {
             throw new NullPointerException("Please, fill the e-mail in");
         }
-        if ((!email.contains("@")) || (!email.contains("."))) {
-            throw new IllegalArgumentException(String.format("%s is not correct name for e-mail, please check for @ or dot.", email));
+        Pattern endPattern = Pattern.compile(".[A-Za-z]{2,5}");
+        Pattern startPattern = Pattern.compile("[a-zA-Z0-9]@");
+        Pattern meddlePattern = Pattern.compile("@[a-zA-Z0-9].");
+        if(!(endPattern.matcher(email).find()) || !(startPattern.matcher(email).find()) || !(meddlePattern.matcher(email).find())){
+            throw new IllegalArgumentException(String.format("%s is not correct pattern for e-mail, please check ", email));
         }
-
         WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
         emailElement.clear();
         emailElement.sendKeys(email);
+    }
+    public void setEmailInModalWindowWithoutException(String email) {
+        WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
+        emailElement.clear();
+        emailElement.sendKeys(email);
+    }
 
+    public void setEmailInModalWindowWithoutCheckingInput(String email) {
+        WebElement emailElement = this.findElementVisibleWithFluentWait(userEmailBy);
+        emailElement.clear();
+        emailElement.sendKeys(email);
     }
     public void setAgeInModalWindow(Integer age) {
         if (age == null) {
@@ -293,60 +340,26 @@ public class WebTablesPage extends AbstractPage {
     //endregion
 
     //region Click_Buttons
-    private void clickOnAddButton() {
+    public void clickOnAddButton() {
         this.findElementVisibleWithFluentWait(addButton).click();
     }
 
-    private void clickOnSubmitButton() {
+    public void clickOnSubmitButton() {
         this.findElementVisibleWithFluentWait(submitButton).click();
     }
 
-    private void clickOnCloseButtonModalWindow() {
+    public void clickOnCloseButtonModalWindow() {
         this.findElementVisibleWithFluentWait(closeButton).click();
     }
 
-    private void clickOnEditorInLine(int line) {
+    public void clickOnEditorInLine(int line) {
         String chosenLine = String.format("edit-record-%d", line);
         this.findElementVisibleWithFluentWait(By.id(chosenLine)).click();
     }
     //endregion
 
-//
-//    public String getFirstNameBorderColorWithEmptySubmit() {
-//        this.clickOnAddButton();
-//        this.clickOnSubmitButton();
-//        return this.findElementVisibleWithFluentWait(firstNameBy).getCssValue("border-color");
-//    }
-//
-//    public String getLastNameBorderColorWithEmptySubmit() {
-//        this.clickOnAddButton();
-//        this.clickOnSubmitButton();
-//        return this.findElementVisibleWithFluentWait(lastNameBy).getCssValue("border-color");
-//    }
-//
-//    public String getAgeNameBorderColorWithEmptySubmit() {
-//        this.clickOnAddButton();
-//        this.clickOnSubmitButton();
-//        return this.findElementVisibleWithFluentWait(ageBy).getCssValue("border-color");
-//    }
-//
-//    public String getEmailBorderColorWithEmptySubmit() {
-//        this.clickOnAddButton();
-//        this.clickOnSubmitButton();
-//        return this.findElementVisibleWithFluentWait(userEmailBy).getCssValue("border-color");
-//    }
-//
-//    public String getSalaryBorderColorWithEmptySubmit() {
-//        this.clickOnAddButton();
-//        this.clickOnSubmitButton();
-//        return this.findElementVisibleWithFluentWait(salaryBy).getCssValue("border-color");
-//    }
-//
-//    public String getDepartmentBorderColorWithEmptySubmit() {
-//        this.clickOnAddButton();
-//        this.clickOnSubmitButton();
-//        return this.findElementVisibleWithFluentWait(departmentBy).getCssValue("border-color");
-//    }
+
+
 
 
 

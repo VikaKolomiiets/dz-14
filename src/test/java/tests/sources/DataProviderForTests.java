@@ -58,5 +58,19 @@ public class DataProviderForTests {
             {3, "Assa", "Bob", "11@22.ua", 21, 1122, "Surgery"}};
     }
 
+    @DataProvider(name = "email-red-alert")
+    public static Object[][] setUpAllDataWithEmailException(){
+        return new Object[][]{
+                {"First", "Wolf", "@gmail.com", 58, 5000, "Medicine"},
+                {"Second", "Red", "gmail.com", 60, 8000, "IT"},
+                {"Third", "Red", "vika@gmail.c", 60, 8000, "IT"},
+                {"Third", "Red", "gmail", 60, 8000, "IT"},
+                {"Forth", "Red", "@gmail", 60, 8000, "IT"},
+                {"Fifth", "Bob", "@22.", 21, 1122, "Surgery"},
+                {"Sixth", "Bob", "@.", 21, 1122, "Surgery"},
+                {"Seventh", "Bob", "victory@.com", 21, 1122, "Surgery"},
+                {"Eighth", "Bob", "vika@22.victory", 21, 1122, "Surgery"}};
+    }
+
 
 }
